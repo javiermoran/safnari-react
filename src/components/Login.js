@@ -1,5 +1,4 @@
 import React from 'react';
-import './Login.scss';
 
 class Login extends React.Component {
   state = {
@@ -20,24 +19,24 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
-        <div class="container">
+        <div className="container">
           <h1>Log in</h1>
           <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email or Username</label>
+            <div className="form-group">
+              <label>Email or Username</label>
               <input 
                 type="email"
-                class="form-control"
+                className="form-control"
                 placeholder="Email or username"
                 value={this.state.username}
                 onChange={this.onUsernameChange}
               />
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Password</label>
+            <div className="form-group">
+              <label>Password</label>
               <input 
                 type="password" 
-                class="form-control"
+                className="form-control"
                 placeholder="Password" 
                 value={this.state.password}
                 onChange={this.onPasswordChange}
@@ -46,7 +45,7 @@ class Login extends React.Component {
           </form>
           <button 
             type="submit"
-            class="btn btn-primary"
+            className="btn btn-primary"
             disabled={this.isBtnDisabled()}
           >
           Log in

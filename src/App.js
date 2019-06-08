@@ -3,10 +3,10 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as history from 'history';
 import './App.scss';
-import HomePage from './components/home/HomePage';
-import Header from './components/header/Header';
-import Login from './components/login/Login';
-import Register from './components/register/Register';
+import HomePage from './components/HomePage';
+import Header from './components/Header';
+import Login from './components/Login';
+import Register from './components/Register';
 import configureStore from './store/configureStore';
 
 const browserHistory = history.createBrowserHistory();
