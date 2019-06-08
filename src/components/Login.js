@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import api from '../safnari.api';
 
 class Login extends React.Component {
   state = {
     username: '',
     password: '',
-    error: ''
+    error: '',
+    loading: false
   };
   constructor(props) {
     super(props);
 
     if(api.users.isLoggedIn()) {
+      console.info(this.props);
+      this.props.dispatch({ type: 'LOGGED_IN' })
       this.props.history.push('/home');
     }
   }
@@ -23,19 +27,22 @@ class Login extends React.Component {
     this.setState({ password });
   };
   isBtnDisabled = () => {
-    return !this.state.password || !this.state.username;
+    return !this.state.password || !this.state.username || this.state.loading;
   };
   onSubmit = (e) => {
     e.preventDefault();
+    this.setState({ loading: true });
     const { username, password } = this.state;
     api.users.login(username, password)
       .then(() => {
+        this.setState({ loading: false });
+        this.props.dispatch({ type: 'LOGGED_IN' })
         this.props.history.push('/home');
       })
       .catch((error) => {
         console.error(error);
-        this.setState({ error: 'Incorrect username or password' });
-      });
+        this.setState({ error: 'Incorrect username or password', loading: false });
+      })
   };
   render() {
     return (
@@ -78,4 +85,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Login);
