@@ -6,15 +6,22 @@ import api from '../safnari.api';
 class Header extends React.Component {
   loggedInMenu = () => {
     return (
-      <ul className="nav">
-        <a
-          className="nav-link"
-          href="#"
-          onClick={this.onLogout}
-        >
-          Logout
-        </a>
-      </ul>
+      <div>
+        <ul className="nav">
+          <li className="nav-item">
+            { this.props.user.username }
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href="#"
+              onClick={this.onLogout}
+            >
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
     )
   };
   loggedOutMenu = () => {

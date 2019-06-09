@@ -10,8 +10,29 @@ export const types = {
   types: `${BASEPATH}/types`
 };
 
+export const collections = {
+  collections: `${BASEPATH}/collections`,
+  collection: `${BASEPATH}/collections/:id`
+};
+
+export const items = {
+  items: `${BASEPATH}/items`,
+  item: `${BASEPATH}/items/:id`
+};
+
+const transform = (endpoint, params) => {
+  const route = endpoint;
+  const keys = Object.keys(params);
+  keys.forEach((key) => {
+    route = route.replace(`:${key}`, params[key]);
+  });
+  return route;
+};
+
 export default {
   BASEPATH,
+  transform,
   users,
-  types
-}
+  types,
+  collections
+};

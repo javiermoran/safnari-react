@@ -34,9 +34,13 @@ class Login extends React.Component {
     const { username, password } = this.state;
     api.users.login(username, password)
       .then(() => {
-        this.setState({ loading: false });
-        this.props.dispatch({ type: 'LOGGED_IN' })
-        this.props.history.push('/home');
+        this.props.dispatch({ type: 'LOGGED_IN' });
+        api.users.me().then((userResponse) => {
+          const user = userResponse.data;
+          this.props.dispatch({ type: 'SET_USER', user });
+          this.setState({ loading: false });
+          this.props.history.push('/home');
+        }); 
       })
       .catch((error) => {
         console.error(error);

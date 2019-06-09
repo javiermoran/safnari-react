@@ -24,6 +24,7 @@ const logout = () => {
     core.delete(endpoints.users.token)
       .then(() => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
         resolve();
       })
       .catch((error) => {
