@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import api from '../safnari.api';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   loggedInMenu = () => {
     return (
       <ul className="nav">
@@ -47,6 +44,13 @@ class Header extends React.Component {
   render() {
     return (
       <div className="Header">
+        { 
+          this.props.alerts.map(alert => (
+            <div className={ `alert ${alert.type}`} key={alert.id}>
+              { alert.message }
+            </div>
+          ))
+        }
         { this.props.user.loggedIn ? this.loggedInMenu() : this.loggedOutMenu() }
       </div>
     )
@@ -54,7 +58,8 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  alerts: state.alerts
 });
 
 export default connect(mapStateToProps)(withRouter(Header));

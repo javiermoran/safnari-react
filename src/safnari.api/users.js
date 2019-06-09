@@ -41,6 +41,7 @@ const me = () => {
 }
 
 export default {
+  create,
   login,
   logout,
   isLoggedIn,

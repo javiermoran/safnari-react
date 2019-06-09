@@ -13,7 +13,6 @@ class Login extends React.Component {
     super(props);
 
     if(api.users.isLoggedIn()) {
-      console.info(this.props);
       this.props.dispatch({ type: 'LOGGED_IN' })
       this.props.history.push('/home');
     }
