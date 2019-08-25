@@ -2,4 +2,12 @@
   .MuiAppBar-colorPrimary {
     background-color: var(--primary-color);
   }
+  .sign-up-menu {
+    &__link {
+      color: var(--light-100);
+      &--active button {
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }

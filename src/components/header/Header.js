@@ -24,11 +24,19 @@ class Header extends React.Component {
   };
   loggedOutMenu = () => {
     return (
-      <div>
-        <NavLink to="login" activeClassName="active">
+      <div class="sign-up-menu">
+        <NavLink
+          className="sign-up-menu__link"
+          to="/login"
+          activeClassName="sign-up-menu__link--active"
+        >
           <Button color="inherit">Sign in</Button>
         </NavLink>
-        <NavLink to="register" activeClassName="active">
+        <NavLink
+          className="sign-up-menu__link"
+          to="/register"
+          activeClassName="sign-up-menu__link--active"
+        >
           <Button color="inherit">Sign up</Button>
         </NavLink>
       </div>
@@ -58,9 +66,7 @@ class Header extends React.Component {
             <Typography variant="h6" className="title flex-grow-1">
               Safnari
             </Typography>
-            {this.props.user.loggedIn
-              ? this.loggedInMenu()
-              : this.loggedOutMenu()}
+            {this.props.user.loggedIn ? this.loggedInMenu() : this.loggedOutMenu()}
           </Toolbar>
         </AppBar>
       </div>
