@@ -33,7 +33,7 @@ class Register extends React.Component {
     return (
       <div className="Register">
         <div className="container">
-          <h1>Create account</h1>
+          <h2>Sign up</h2>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label>Email address</label>

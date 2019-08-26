@@ -1,0 +1,16 @@
+.Footer {
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--shades);
+  border-top: 1px solid darken(#EFEFEF, 10%);
+  display: flex;
+  height: 45px;
+  justify-content: center;
+  text-align: center;
+  &__icon {
+    color: var(--content-color);
+    font-size: 20px;
+    padding: 0 6px;
+  }
+}

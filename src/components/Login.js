@@ -14,7 +14,7 @@ class Login extends React.Component {
 
     if(api.users.isLoggedIn()) {
       this.props.dispatch({ type: 'LOGGED_IN' })
-      this.props.history.push('/home');
+      this.props.history.push('/');
     }
   }
   onUsernameChange = (e) => {
@@ -39,7 +39,7 @@ class Login extends React.Component {
           const user = userResponse.data;
           this.props.dispatch({ type: 'SET_USER', user });
           this.setState({ loading: false });
-          this.props.history.push('/home');
+          this.props.history.push('/');
         }); 
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ class Login extends React.Component {
     return (
       <div className="Login">
         <div className="container">
-          <h1>Log in</h1>
+          <h2>Sign in</h2>
           { this.state.error }
           <form onSubmit={this.onSubmit}>
             <div className="form-group">

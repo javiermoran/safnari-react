@@ -21,7 +21,7 @@ export const items = {
 };
 
 const transform = (endpoint, params) => {
-  const route = endpoint;
+  let route = endpoint;
   const keys = Object.keys(params);
   keys.forEach((key) => {
     route = route.replace(`:${key}`, params[key]);
