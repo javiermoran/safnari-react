@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import Header from './components/header/Header';
 import Login from './components/Login';
 import Register from './components/Register';
+import Collections from './components/collections/Collections';
 import Footer from './components/footer/Footer';
 import configureStore from './store/configureStore';
 import './scss/main.scss';
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" component={Dashboard} exact={true} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/collections" component={Collections} exact={true} />
           </Switch>
         </div>
         <Footer />
