@@ -7,6 +7,7 @@ import Header from './components/header/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Collections from './components/collections/Collections';
+import CollectionDetails from './components/collections/details/CollectionDetails';
 import Footer from './components/footer/Footer';
 import configureStore from './store/configureStore';
 import './scss/main.scss';
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/collections" component={Collections} exact={true} />
+            <Route path="/collections/:collectionId" component={CollectionDetails} />
           </Switch>
         </div>
         <Footer />

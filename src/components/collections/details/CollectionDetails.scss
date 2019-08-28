@@ -1,0 +1,10 @@
+.CollectionDetails {
+  &__title {
+    align-items: center;
+    display: flex;
+    i {
+      font-size: 24px;
+      margin-right: 10px
+    }
+  }
+}

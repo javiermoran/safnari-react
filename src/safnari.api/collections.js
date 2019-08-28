@@ -1,7 +1,13 @@
 import core from './core';
 import endpoints from './endpoints';
 
-const get = () => {
+const get = id => {
+  if (id) {
+    const url = endpoints.collections.collection;
+    const endpoint = endpoints.transform(url, { id });  
+    return core.get(endpoint);
+  }
+
   return core.get(endpoints.collections.collections);
 };
 
