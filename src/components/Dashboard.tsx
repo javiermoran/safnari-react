@@ -1,9 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { IUser } from "../models/IUser";
 
-class Dashboard extends React.Component {
-  render() {
+interface IDashboardState {
+  user: IUser
+}
+
+interface IDashboardProps {
+  user: IUser
+}
+
+class Dashboard extends React.Component<IDashboardProps, IDashboardState> {
+  render(): JSX.Element {
     return (
       <div className="Dashboard">
         <div className="container">
@@ -15,7 +24,7 @@ class Dashboard extends React.Component {
   };
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IDashboardState) => ({
   user: state.user
 });
 

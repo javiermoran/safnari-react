@@ -1,6 +1,6 @@
 export default (state = [], action) => {
   switch(action.type) {
-    case 'REFRESH_COLLECTIONS':
+    case 'SET_COLLECTIONS':
       return [...action.collections];
     default:
       return [...state];

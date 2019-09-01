@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import onInputChange from '../utils/onInputChange';
 import api from '../safnari.api';
-import alertsActions from '../actions/alerts';
+import alertsActions from '../actions/alerts.actions';
 
 class Register extends React.Component {
   state = {

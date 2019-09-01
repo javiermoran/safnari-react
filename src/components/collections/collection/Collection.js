@@ -4,7 +4,6 @@ import './Collection.scss';
 
 class Collection extends React.Component {
   goToDetails = () => {
-    console.info(this.props);
     const { history } = this.props;
     const id = this.props.data._id;
     history.push(`/collections/${id}`);
