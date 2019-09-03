@@ -5,7 +5,7 @@ export interface ICollection {
   name: string;
   type: Type[] | string;
   parent?: string;
-  breadcrumbs?: string[];
+  breadcrumbs?: ICollection[];
   creator?: string;
   created?: number;
 }

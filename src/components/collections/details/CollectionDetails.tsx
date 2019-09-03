@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import api from '../../../safnari.api';
 import { ICollection } from '../../../models/ICollection';
 import collectionActions from '../../../actions/collections.actions';
-import './CollectionDetails.scss';
 import Collection from '../collection/Collection';
+import Breadcrumbs from '../../breadcrumbs/Breadcrumbs';
+import './CollectionDetails.scss';
 
 interface ICollectionDetailsState {
   _id?: string;
@@ -32,14 +33,17 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     _id: '',
     icon: '',
     name: '',
-    children: []
+    children: [],
+    breadcrumbs: []
   }
   componentDidMount(): void {
+    console.info('componentDidMount');
     const { collectionId } = this.props.match.params;
     this.getCollectionDetails(collectionId);
   }
   componentWillReceiveProps(nextProps: ICollectionDetailsProps): void {
-    this.getChildCollections(nextProps.collections);
+    console.info('componentWillReceiveProps', nextProps);
+    this.getCollectionDetails(nextProps.match.params.collectionId);
   }
   getChildCollections(collections: ICollection[]): void {
     const { collectionId } = this.props.match.params;
@@ -47,21 +51,20 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     this.setState({ children });
   }
   getCollectionDetails(id: string): void {
+    if (!this.props.collections.length) {
+      this.props.dispatch(collectionActions.getCollections());
+    }
+    
     api.collections.get(id)
       .then((response) => {
-      const { _id, name, breadcrumbs } = response.data;
-      const { icon } = response.data.type;
-      this.setState({ _id, name, breadcrumbs, icon });
+        const { _id, name, breadcrumbs } = response.data;
+        const { icon } = response.data.type;
+        this.setState({ _id, name, breadcrumbs, icon });
+        this.getChildCollections(this.props.collections);
       })
       .catch((error) => {
         this.props.history.push('/collections');
       });
-
-    if (!this.props.collections.length) {
-      this.props.dispatch(collectionActions.getCollections());
-    } else {
-      this.getChildCollections(this.props.collections);
-    }
   }
   renderChildCollections(): JSX.Element[] {
     return this.state.children.map((child: ICollection) => (
@@ -74,6 +77,7 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     return (
       <div className="CollectionDetails">
         <div className="container">
+          <Breadcrumbs data={this.state.breadcrumbs} />
           <h2 className="CollectionDetails__title">
             <i className={`fas ${this.state.icon}`}></i>
             {this.state.name}
