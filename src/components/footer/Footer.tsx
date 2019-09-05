@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.scss';
 
-const Footer = () => (
+const Footer = (): JSX.Element => (
   <div className="Footer">
     <i className="fab fa-react Footer__icon"></i>
     <i className="fab fa-sass Footer__icon"></i>

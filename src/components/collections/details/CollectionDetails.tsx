@@ -8,13 +8,16 @@ import collectionActions from '../../../actions/collections.actions';
 import Collection from '../collection/Collection';
 import Breadcrumbs from '../../breadcrumbs/Breadcrumbs';
 import './CollectionDetails.scss';
+import AddItemLink from '../../items/add-item-link/AddItemLink';
 
 interface ICollectionDetailsState {
   _id?: string;
   name?: string;
   breadcrumbs?: string[];
   icon?: string;
-  children?: ICollection[]
+  typeId?: string;
+  children?: ICollection[];
+  collection?: ICollection;
 }
 
 interface ICollectionDetailsMatch {
@@ -34,15 +37,15 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     icon: '',
     name: '',
     children: [],
-    breadcrumbs: []
+    typeId: '',
+    breadcrumbs: [],
+    collection: {} as ICollection
   }
   componentDidMount(): void {
-    console.info('componentDidMount');
     const { collectionId } = this.props.match.params;
     this.getCollectionDetails(collectionId);
   }
   componentWillReceiveProps(nextProps: ICollectionDetailsProps): void {
-    console.info('componentWillReceiveProps', nextProps);
     this.getCollectionDetails(nextProps.match.params.collectionId);
   }
   getChildCollections(collections: ICollection[]): void {
@@ -59,19 +62,31 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
       .then((response) => {
         const { _id, name, breadcrumbs } = response.data;
         const { icon } = response.data.type;
-        this.setState({ _id, name, breadcrumbs, icon });
+        this.setState({ _id, name, breadcrumbs, icon, collection: response.data });
         this.getChildCollections(this.props.collections);
       })
       .catch((error) => {
         this.props.history.push('/collections');
       });
   }
-  renderChildCollections(): JSX.Element[] {
-    return this.state.children.map((child: ICollection) => (
+  renderChildCollections(): JSX.Element {
+    const children = this.state.children.map((child: ICollection) => (
       <div key={child._id} className="col col-12 col-md-4 col-lg-4 mb-2">
         <Collection data={child} />
       </div>
     ));
+    if (children.length) {
+      return (
+        <div>
+          <h6>Collections:</h6>
+          <div className="row">
+            {children}
+          </div>
+        </div>
+      )
+    } else {
+      return <div></div>;
+    }
   }
   render(): JSX.Element {
     return (
@@ -82,10 +97,8 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
             <i className={`fas ${this.state.icon}`}></i>
             {this.state.name}
           </h2>
-          <h6>Collections:</h6>
-          <div className="row">
-            {this.renderChildCollections()}
-          </div>
+          <AddItemLink collection={this.state.collection} />
+          {this.renderChildCollections()}
         </div>
       </div>
     );

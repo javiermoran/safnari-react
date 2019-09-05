@@ -17,7 +17,7 @@ h2 {
   &-primary {
     border: 1px solid var(--secondary-color);
     background-color: var(--secondary-color);
-    &:hover {
+    &:hover, &:disabled {
       border: 1px solid var(--secondary-color);
       background-color: var(--secondary-highlight-color);
     }

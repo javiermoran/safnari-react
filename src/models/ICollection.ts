@@ -1,9 +1,9 @@
-import { Type } from "./IType";
+import { IType } from "./IType";
 
 export interface ICollection {
   _id?: string;
   name: string;
-  type: Type[] | string;
+  type: IType | string;
   parent?: string;
   breadcrumbs?: ICollection[];
   creator?: string;

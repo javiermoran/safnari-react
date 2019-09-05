@@ -7,4 +7,9 @@
       margin-right: 10px
     }
   }
+  &__add-item {
+    &__link {
+      cursor: pointer;
+    }
+  }
 }

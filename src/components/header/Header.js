@@ -24,7 +24,7 @@ class Header extends React.Component {
   };
   loggedOutMenu = () => {
     return (
-      <div class="sign-up-menu">
+      <div className="sign-up-menu">
         <NavLink
           className="sign-up-menu__link"
           to="/login"
