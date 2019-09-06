@@ -2,6 +2,7 @@ import { IType } from './IType';
 import { ICollection } from './ICollection';
 
 export interface IItem {
+  _id?: string;
   title: string;
   number?: number;
   publisher?: string;

@@ -1,11 +1,13 @@
 import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import typesActions from '../../../actions/types.actions';
+import itemActions from '../../../actions/items.actions';
 import { IType } from '../../../models/IType';
 import { Dispatch } from 'redux';
-import { TextField, Button, Select, MenuItem, FormControl, Typography, InputLabel } from '@material-ui/core';
+import { TextField, Button, Select, MenuItem, FormControl, Typography, InputLabel, FormGroup } from '@material-ui/core';
 import { ICollection } from '../../../models/ICollection';
 import './ItemForm.scss';
+import { IItem } from '../../../models/IItem';
 
 interface IItemFormProps {
   collection: ICollection
@@ -18,6 +20,9 @@ class ItemForm extends React.Component<IItemFormProps> {
   state = {
     title: '',
     type: '',
+    publisher: '',
+    number: 0,
+    artist: '',
     typeDisabled: false
   }
   componentDidMount() {
@@ -32,6 +37,12 @@ class ItemForm extends React.Component<IItemFormProps> {
   handleFormChange(property: string, event: ChangeEvent<any>) {
     this.setState({ ...this.state, [property]: event.target.value });
   }
+  handleSaveClick() {
+    const { typeDisabled, ...newItem } = this.state;
+    const item: IItem = { ...newItem, coll: this.props.collection._id as string };
+    this.props.dispatch(itemActions.saveItem(item));
+    this.props.onCancel();
+  }
   renderTypeOptions() {
     return this.props.types.map((type: IType) => (
       <MenuItem 
@@ -45,31 +56,62 @@ class ItemForm extends React.Component<IItemFormProps> {
     return (
       <div className="ItemForm">
         <form>
-          <Typography variant="h6">
-            Add Item
-          </Typography>
-          <FormControl>
-            <TextField
-              id="title"
-              label="Title"
-              value={this.state.title}
-              onChange={(event) => this.handleFormChange('title', event)}
-            />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="type">
-              Type
-            </InputLabel>
-            <Select
-              id="type"
-              disabled={this.state.typeDisabled}
-              value={this.state.type}
-              onChange={(event) => this.handleFormChange('type', event)}
-            >
-            {this.renderTypeOptions()}
-            </Select>
-          </FormControl>
-          <Button variant="contained" color="primary">
+          <FormGroup>
+            <Typography variant="h6">
+              Add Item
+            </Typography>
+            <FormControl className="ItemForm__form-control">
+              <TextField
+                id="title"
+                label="Title"
+                value={this.state.title}
+                onChange={(event) => this.handleFormChange('title', event)}
+              />
+            </FormControl>
+            <FormControl className="ItemForm__form-control">
+              <TextField
+                id="publisher"
+                label="Publisher"
+                value={this.state.publisher}
+                onChange={(event) => this.handleFormChange('publisher', event)}
+              />
+            </FormControl>
+            <FormControl className="ItemForm__form-control">
+              <TextField
+                id="artist"
+                label="Artist"
+                value={this.state.artist}
+                onChange={(event) => this.handleFormChange('artist', event)}
+              />
+            </FormControl>
+            <FormControl className="ItemForm__form-control">
+              <TextField
+                id="number"
+                label="Number"
+                type="number"
+                value={this.state.number}
+                onChange={(event) => this.handleFormChange('number', event)}
+              />
+            </FormControl>
+            <FormControl className="ItemForm__form-control">
+              <InputLabel htmlFor="type">
+                Type
+              </InputLabel>
+              <Select
+                id="type"
+                disabled={this.state.typeDisabled}
+                value={this.state.type}
+                onChange={(event) => this.handleFormChange('type', event)}
+              >
+              {this.renderTypeOptions()}
+              </Select>
+            </FormControl>
+          </FormGroup>
+          <Button
+            onClick={() => { this.handleSaveClick(); }}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
           <Button

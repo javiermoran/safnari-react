@@ -34,5 +34,6 @@ export default {
   transform,
   users,
   types,
-  collections
+  collections,
+  items
 };

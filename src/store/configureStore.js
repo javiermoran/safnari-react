@@ -4,6 +4,7 @@ import userReducer from '../reducers/user';
 import alertsReducer from '../reducers/alerts'
 import collectionsReducer from '../reducers/collections';
 import typesReducer from '../reducers/types';
+import ItemsReducer from '../reducers/items';
 
 const composeEnhancers = window.__REDUX_DEV_TOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -13,7 +14,8 @@ export default () => {
       user: userReducer,
       alerts: alertsReducer,
       types: typesReducer,
-      collections: collectionsReducer
+      collections: collectionsReducer,
+      items: ItemsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

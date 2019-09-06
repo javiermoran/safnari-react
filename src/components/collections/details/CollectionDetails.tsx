@@ -1,14 +1,15 @@
+import api from '../../../safnari.api';
 import React, { Dispatch } from 'react';
 import { History } from 'history';
 import { RouteComponentProps, match } from 'react-router';
 import { connect } from 'react-redux';
-import api from '../../../safnari.api';
 import { ICollection } from '../../../models/ICollection';
 import collectionActions from '../../../actions/collections.actions';
+import itemActions from '../../../actions/items.actions';
 import Collection from '../collection/Collection';
 import Breadcrumbs from '../../breadcrumbs/Breadcrumbs';
-import './CollectionDetails.scss';
 import AddItemLink from '../../items/add-item-link/AddItemLink';
+import './CollectionDetails.scss';
 
 interface ICollectionDetailsState {
   _id?: string;
@@ -44,9 +45,13 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
   componentDidMount(): void {
     const { collectionId } = this.props.match.params;
     this.getCollectionDetails(collectionId);
+    this.getCollectionItems(collectionId);
   }
   componentWillReceiveProps(nextProps: ICollectionDetailsProps): void {
     this.getCollectionDetails(nextProps.match.params.collectionId);
+  }
+  componentWillUnmount() {
+    this.props.dispatch(itemActions.clearItems());
   }
   getChildCollections(collections: ICollection[]): void {
     const { collectionId } = this.props.match.params;
@@ -68,6 +73,9 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
       .catch((error) => {
         this.props.history.push('/collections');
       });
+  }
+  getCollectionItems(id: string) {
+    this.props.dispatch(itemActions.getItems(id));
   }
   renderChildCollections(): JSX.Element {
     const children = this.state.children.map((child: ICollection) => (
@@ -106,7 +114,8 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
 }
 
 const mapStateToProps = (state: any) => ({
-  collections: state.collections
+  collections: state.collections,
+  items: state.items
 });
 
 export default connect(mapStateToProps)(CollectionDetails);
