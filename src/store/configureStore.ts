@@ -1,21 +1,22 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import userReducer from '../reducers/user';
-import alertsReducer from '../reducers/alerts'
-import collectionsReducer from '../reducers/collections';
-import typesReducer from '../reducers/types';
+import userReducer from '../reducers/user.reducer';
+import alertsReducer from '../reducers/alerts.reducer'
+import collectionsReducer from '../reducers/collections.reducer';
+import typesReducer from '../reducers/types.reducer';
 import ItemsReducer from '../reducers/items.reducer';
 
+//@ts-ignore no definition for window
 const composeEnhancers = window.__REDUX_DEV_TOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
   const store = createStore(
     combineReducers({
-      user: userReducer,
       alerts: alertsReducer,
-      types: typesReducer,
       collections: collectionsReducer,
-      items: ItemsReducer
+      items: ItemsReducer,
+      types: typesReducer,
+      user: userReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

@@ -115,13 +115,20 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
       <div className="CollectionDetails">
         <div className="container">
           <Breadcrumbs data={this.state.breadcrumbs} />
-          <h2 className="CollectionDetails__title">
-            <i className={`fas ${this.state.icon}`}></i>
-            {this.state.name}
-          </h2>
-          <AddItemLink collection={this.state.collection}>
-            <Button color="primary">Add Item</Button>
-          </AddItemLink>
+          <div className="CollectionDetails__header">
+            <Typography variant="h2" className="CollectionDetails__title">
+              <i className={`fas ${this.state.icon}`}></i>
+              {this.state.name}
+            </Typography>
+            <div className="CollectionDetails__header__buttons">
+              <AddItemLink collection={this.state.collection}>
+                <Button variant="contained" color="primary">
+                  <i className="fas fa-plus mr-1"></i>
+                  Add Item
+                </Button>
+              </AddItemLink>
+            </div>
+          </div>
           { !!this.state.children.length && this.renderChildCollections() }
           { !!this.props.items.length && this.renderItems() }
         </div>

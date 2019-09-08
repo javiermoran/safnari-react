@@ -1,12 +1,21 @@
-import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React, { FormEvent, Dispatch } from "react";
+import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import api from "../../safnari.api";
+import { History } from 'history';
+import { IAlert } from "../../models/IAlert";
 import "./Header.scss";
 
-class Header extends React.Component {
+interface IHeaderProps extends RouteComponentProps {
+  alerts: IAlert[];
+  user: { loggedIn: boolean, darkMode: boolean, username: string };
+  dispatch: Dispatch<any>;
+  history: History;
+};
+
+class Header extends React.Component<IHeaderProps> {
   loggedInMenu = () => {
     return (
       <div>
@@ -36,7 +45,7 @@ class Header extends React.Component {
       </div>
     );
   };
-  onLogout = e => {
+  onLogout = (e: FormEvent<any>) => {
     const { history } = this.props;
     e.preventDefault();
     api.users.logout().then(() => {
@@ -47,7 +56,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className="Header">
-        {this.props.alerts.map(alert => (
+        {this.props.alerts.map((alert: IAlert) => (
           <div className={`alert ${alert.type}`} key={alert.id}>
             {alert.message}
           </div>
@@ -68,7 +77,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   user: state.user,
   alerts: state.alerts
 });

@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { IItem } from '../models/IItem';
 
-export default (state = [], action: AnyAction) => {
+export default (state: IItem[] = [], action: AnyAction): IItem[]  => {
   switch(action.type) {
     case 'CLEAR_ITEMS':
       return [];

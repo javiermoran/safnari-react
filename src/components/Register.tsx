@@ -1,10 +1,16 @@
-import React from "react";
+import React, { Dispatch, FormEvent } from "react";
 import { connect } from 'react-redux';
 import onInputChange from '../utils/onInputChange';
 import api from '../safnari.api';
 import alertsActions from '../actions/alerts.actions';
+import { History } from "history";
 
-class Register extends React.Component {
+interface IRegisterProps {
+  dispatch: Dispatch<any>;
+  history: History;
+}
+
+class Register extends React.Component<IRegisterProps> {
   state = {
     email: '',
     username: '',
@@ -12,7 +18,7 @@ class Register extends React.Component {
     password2: '',
     loading: false
   };
-  onSubmit = (e) => {
+  onSubmit = (e: FormEvent<any>) => {
     e.preventDefault();
     const { email, username, password } = this.state;
     const user = { email, username, password };
@@ -86,6 +92,6 @@ class Register extends React.Component {
   }
 }
 
-const mapStateToProps = ({ alerts }) => ({ alerts });
+const mapStateToProps = ({ alerts }: any) => ({ alerts });
 
 export default connect(mapStateToProps)(Register);

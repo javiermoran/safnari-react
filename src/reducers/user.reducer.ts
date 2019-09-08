@@ -1,11 +1,13 @@
-const user = JSON.parse(localStorage.getItem('user')) || {};
+import { AnyAction } from "redux";
+
+const user = JSON.parse(localStorage.getItem('user') as string) || {};
 const defaultUserState = {
   loggedIn: user.loggedIn || false,
   username: user.username || '',
   darkMode: user.darkMode || false
 };
 
-export default (state = defaultUserState, action) => {
+export default (state = defaultUserState, action: AnyAction) => {
   switch(action.type) {
     case 'LOGGED_IN':
       return { ...state, loggedIn: true };

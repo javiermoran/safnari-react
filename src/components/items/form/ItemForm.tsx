@@ -133,7 +133,7 @@ class ItemForm extends React.Component<IItemFormProps> {
               </Select>
             </FormControl>
             <FormControl className="ItemForm__form-control">
-              { this.state.picture && (<img className="ItemForm__picture" src={this.state.picture} />) }
+              { this.state.picture && (<img alt="" className="ItemForm__picture" src={this.state.picture} />) }
               <TextField
                 value={this.state.imgName}
                 onClick={this.pictureClick.bind(this)}

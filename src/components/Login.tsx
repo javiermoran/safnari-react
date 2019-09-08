@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Dispatch, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import api from '../safnari.api';
+import { History } from 'history';
 
-class Login extends React.Component {
+interface ILoginProps {
+  dispatch: Dispatch<any>;
+  history: History;
+}
+
+class Login extends React.Component<ILoginProps> {
   state = {
     username: '',
     password: '',
     error: '',
     loading: false
   };
-  constructor(props) {
+  constructor(props: ILoginProps) {
     super(props);
 
     if(api.users.isLoggedIn()) {
@@ -17,18 +23,18 @@ class Login extends React.Component {
       this.props.history.push('/');
     }
   }
-  onUsernameChange = (e) => {
-    const username = e.target.value;
+  onUsernameChange = (e: FormEvent<HTMLInputElement>) => {
+    const username = (e.target as HTMLInputElement).value;
     this.setState({ username });
   };
-  onPasswordChange = (e) => {
-    const password = e.target.value;
+  onPasswordChange = (e: FormEvent<HTMLInputElement>) => {
+    const password = (e.target as HTMLInputElement).value;
     this.setState({ password });
   };
   isBtnDisabled = () => {
     return !this.state.password || !this.state.username || this.state.loading;
   };
-  onSubmit = (e) => {
+  onSubmit = (e: FormEvent<any>) => {
     e.preventDefault();
     this.setState({ loading: true });
     const { username, password } = this.state;
@@ -88,7 +94,7 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   user: state.user
 });
 
