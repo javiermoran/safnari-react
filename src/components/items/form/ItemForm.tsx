@@ -6,14 +6,17 @@ import { IType } from '../../../models/IType';
 import { Dispatch } from 'redux';
 import { TextField, Button, Select, MenuItem, FormControl, Typography, InputLabel, FormGroup } from '@material-ui/core';
 import { ICollection } from '../../../models/ICollection';
-import './ItemForm.scss';
 import { IItem } from '../../../models/IItem';
+import './ItemForm.scss';
+// @ts-ignore no types form FileBase64
+import FileBase64 from 'react-file-base64';
 
 interface IItemFormProps {
   collection: ICollection
   types: IType[];
   dispatch: Dispatch<any>;
   onCancel: any;
+  item?: IItem;
 }
 
 class ItemForm extends React.Component<IItemFormProps> {
@@ -23,7 +26,9 @@ class ItemForm extends React.Component<IItemFormProps> {
     publisher: '',
     number: 0,
     artist: '',
-    typeDisabled: false
+    picture: '',
+    typeDisabled: false,
+    imgName: ''
   }
   componentDidMount() {
     if (!this.props.types.length) {
@@ -33,6 +38,12 @@ class ItemForm extends React.Component<IItemFormProps> {
       const type = this.props.collection.type as IType;
       this.setState({ type: type._id, typeDisabled: true });
     }
+    if (this.props.item) {
+      const { title, publisher, number, artist, picture } = this.props.item;
+      const imgName = `${this.props.item._id}`;
+      const type = this.props.item.type as IType;
+      this.setState({ title, publisher, number, artist, picture, imgName, type: type._id });
+    }
   }
   handleFormChange(property: string, event: ChangeEvent<any>) {
     this.setState({ ...this.state, [property]: event.target.value });
@@ -40,8 +51,23 @@ class ItemForm extends React.Component<IItemFormProps> {
   handleSaveClick() {
     const { typeDisabled, ...newItem } = this.state;
     const item: IItem = { ...newItem, coll: this.props.collection._id as string };
-    this.props.dispatch(itemActions.saveItem(item));
+
+    if (this.props.item) {
+      const { _id } = this.props.item as IItem;
+      this.props.dispatch(itemActions.updateItem(_id as string, item));
+    } else {
+      this.props.dispatch(itemActions.saveItem(item));
+    }
+
     this.props.onCancel();
+  }
+  setImg(file: any) {
+    this.setState({ picture: file.base64, imgName: file.name });
+  }
+  pictureClick() {
+    const div = document.getElementById('pictureDiv') as HTMLElement;
+    const inputs = div.getElementsByTagName('input');
+    inputs[0].click();
   }
   renderTypeOptions() {
     return this.props.types.map((type: IType) => (
@@ -57,8 +83,8 @@ class ItemForm extends React.Component<IItemFormProps> {
       <div className="ItemForm">
         <form>
           <FormGroup>
-            <Typography variant="h6">
-              Add Item
+            <Typography variant="h4">
+              { this.props.item ? 'Edit' : 'Add' } Item
             </Typography>
             <FormControl className="ItemForm__form-control">
               <TextField
@@ -106,21 +132,36 @@ class ItemForm extends React.Component<IItemFormProps> {
               {this.renderTypeOptions()}
               </Select>
             </FormControl>
+            <FormControl className="ItemForm__form-control">
+              { this.state.picture && (<img className="ItemForm__picture" src={this.state.picture} />) }
+              <TextField
+                value={this.state.imgName}
+                onClick={this.pictureClick.bind(this)}
+                onFocus={() => { !this.state.picture && this.pictureClick() }}
+                label="Picture"
+                type="text"
+              />
+              <div id="pictureDiv">
+                <FileBase64 onDone={this.setImg.bind(this)} />
+              </div>
+            </FormControl>
           </FormGroup>
-          <Button
-            onClick={() => { this.handleSaveClick(); }}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
-          <Button
-            variant="contained" 
-            color="default"
-            onClick={this.props.onCancel}
-          >
-            Cancel
-          </Button>
+          <div className="ItemForm__buttons">
+            <Button
+              onClick={() => { this.handleSaveClick(); }}
+              variant="contained"
+              color="primary"
+            >
+              Save
+            </Button>
+            <Button
+              variant="contained" 
+              color="default"
+              onClick={this.props.onCancel}
+            >
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
     );

@@ -1,5 +1,15 @@
+.MuiFormControl-root {
+  max-width: 100%;
+}
+
 label.MuiFormLabel-root.Mui-focused {
   color: var(--secondary-color);
+}
+
+.MuiButton-textPrimary {
+  span.MuiButton-label {
+    color: var(--secondary-color);
+  }
 }
 
 div.MuiInput-underline:after {

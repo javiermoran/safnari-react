@@ -1,4 +1,7 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
 @import 'variables';
 @import 'global';
 @import 'flex-modal';

@@ -16,6 +16,22 @@ export const saveItem = (item: IItem) => {
       dispatch(addItem(response.data));
     });
   }
+};
+
+export const updateItem = (id: string, item: IItem) => {
+  return (dispatch: Dispatch<AnyAction>) => {
+    api.items.update(id, item).then((response) => {
+      dispatch(replaceItem(response.data));
+    });
+  }
+};
+
+export const deleteItem = (id: string) => {
+  return (dispatch: Dispatch<AnyAction>) => {
+    api.items.delete(id).then(() => {
+      dispatch(removeItem(id));
+    });
+  };
 }
 
 export const clearItems = () => ({
@@ -32,8 +48,20 @@ export const addItem = (item: IItem): AnyAction => ({
   item
 });
 
+export const replaceItem = (item: IItem): AnyAction => ({
+  type: 'REPLACE_ITEM',
+  item
+});
+
+export const removeItem = (id: string): AnyAction => ({
+  type: 'REMOVE_ITEM',
+  id
+});
+
 export default {
   getItems,
   saveItem,
+  updateItem,
+  deleteItem,
   clearItems
 }

@@ -1,8 +1,27 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
 .ItemForm {
   button:not(:last-child) {
     margin-right: 1rem;
   }
   div &__form-control {
     margin-bottom: 1rem;
+  }
+  &__picture {
+    width: 100px;
+  }
+  #pictureDiv {
+    visibility: hidden;
+  }
+  @include media-breakpoint-down(sm) {
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+      button {
+        width: 45%;
+      }
+    }    
   }
 }

@@ -7,8 +7,11 @@ import { ICollection } from '../../../models/ICollection';
 import collectionActions from '../../../actions/collections.actions';
 import itemActions from '../../../actions/items.actions';
 import Collection from '../collection/Collection';
+import Item from '../../items/item/Item';
 import Breadcrumbs from '../../breadcrumbs/Breadcrumbs';
 import AddItemLink from '../../items/add-item-link/AddItemLink';
+import { Typography, Button } from '@material-ui/core';
+import { IItem } from '../../../models/IItem';
 import './CollectionDetails.scss';
 
 interface ICollectionDetailsState {
@@ -29,7 +32,8 @@ interface ICollectionDetailsProps extends RouteComponentProps {
   dispatch: Dispatch<any>;
   history: History;
   collections: ICollection[],
-  match: match<ICollectionDetailsMatch>
+  match: match<ICollectionDetailsMatch>,
+  items: IItem[]
 }
 
 class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollectionDetailsState> {
@@ -79,22 +83,32 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
   }
   renderChildCollections(): JSX.Element {
     const children = this.state.children.map((child: ICollection) => (
-      <div key={child._id} className="col col-12 col-md-4 col-lg-4 mb-2">
+      <div key={child._id} className="col col-12 col-md-4 col-lg-3 mb-2">
         <Collection data={child} />
       </div>
     ));
-    if (children.length) {
-      return (
-        <div>
-          <h6>Collections:</h6>
-          <div className="row">
-            {children}
-          </div>
+    return (
+      <div>
+        <Typography variant="h6">Collections:</Typography>
+        <div className="row">
+          {children}
         </div>
-      )
-    } else {
-      return <div></div>;
-    }
+      </div>
+    );
+  }
+  renderItems(): JSX.Element {
+    return (
+      <div>
+        <Typography variant="h6">Items:</Typography>
+        <div className="row">
+          {this.props.items.map((item) => (
+            <div key={item._id} className="col col-12 col-md-3 mb-2">
+              <Item item={item} collection={this.state.collection} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
   render(): JSX.Element {
     return (
@@ -105,8 +119,11 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
             <i className={`fas ${this.state.icon}`}></i>
             {this.state.name}
           </h2>
-          <AddItemLink collection={this.state.collection} />
-          {this.renderChildCollections()}
+          <AddItemLink collection={this.state.collection}>
+            <Button color="primary">Add Item</Button>
+          </AddItemLink>
+          { !!this.state.children.length && this.renderChildCollections() }
+          { !!this.props.items.length && this.renderItems() }
         </div>
       </div>
     );
