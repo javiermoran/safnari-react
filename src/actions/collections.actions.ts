@@ -17,14 +17,29 @@ export const getCollections = () => {
   };
 }
 
+export const saveCollection = (collection: ICollection) => {
+  return (dispatch: Dispatch<Action>) => {
+    api.collections.create(collection).then((response) => {
+      dispatch(addCollection(response.data));
+    });
+  };
+}
+
 export const setCollections = (collections: ICollection[]) => ({
     type: 'SET_COLLECTIONS',
     collections
 });
 
+export const addCollection = (collection: ICollection) => ({
+  type: 'ADD_COLLECTION',
+  collection
+});
+
 /** Helpers */
 export function filterByParent(collections: ICollection[], parentId?: string): ICollection[] {
-  return collections.filter((col: ICollection) =>  !parentId ? !col.parent : col.parent === parentId);
+  return collections.filter((col: ICollection) =>  {
+    return !parentId ? !col.parent : col.parent && (col.parent as ICollection)._id === parentId;
+  });
 }
 
 export function findById(collections: ICollection[], id: string): ICollection {
@@ -34,6 +49,7 @@ export function findById(collections: ICollection[], id: string): ICollection {
 
 export default {
   getCollections,
+  saveCollection,
   filterByParent,
   findById
 }

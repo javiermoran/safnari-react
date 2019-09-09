@@ -4,6 +4,9 @@ import Collection from './collection/Collection';
 import collectionsActions from '../../actions/collections.actions';
 import { ICollection } from '../../models/ICollection';
 import { Dispatch } from 'redux';
+import AddCollection from './add-collection/AddCollection';
+import { Button, Typography } from '@material-ui/core';
+import './Collections.scss';
 
 interface ICollectionProps {
   collections: ICollection[];
@@ -29,7 +32,14 @@ class Collections extends React.Component<ICollectionProps> {
     return (
       <div className="Collections">
         <div className="container">
-          <h2>Collections</h2>
+          <div className="Collections__header">
+            <Typography variant="h2">Collections</Typography>
+            <AddCollection>
+              <Button color="primary" variant="contained">
+                <i className="fas fa-plus mr-1"></i> Collection
+              </Button>
+            </AddCollection>
+          </div>
           <div className="row">
             {this.renderCollections()}
           </div>

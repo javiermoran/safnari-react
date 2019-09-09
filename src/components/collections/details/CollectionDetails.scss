@@ -7,6 +7,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    &__buttons {
+      display: flex;
+      & > div:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
   }
   h2#{&}__title {
     align-items: center;
@@ -24,9 +32,17 @@
   }
   @include media-breakpoint-down(sm) {
     &__header {
-      flex-direction: column;
+      display: flex;
+      flex-direction: column; 
+      justify-content: space-around;
       &__buttons {
-        padding: 1rem 0;
+        margin: 1rem 0;
+        & > div {
+          width: 45%;
+        }
+        button {
+          width: 100%;
+        }
       }
     }
   }

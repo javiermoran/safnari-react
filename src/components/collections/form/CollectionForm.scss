@@ -1,0 +1,25 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+.CollectionForm {
+  button:not(:last-child) {
+    margin-right: 1rem;
+  }
+  div &__form-control {
+    margin-bottom: 1rem;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  @include media-breakpoint-down(sm) {
+    &__buttons {
+      justify-content: space-around;
+      button {
+        width: 45%;
+      }
+    }    
+  }
+}

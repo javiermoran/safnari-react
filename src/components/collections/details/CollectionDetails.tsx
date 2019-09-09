@@ -13,6 +13,7 @@ import AddItemLink from '../../items/add-item-link/AddItemLink';
 import { Typography, Button } from '@material-ui/core';
 import { IItem } from '../../../models/IItem';
 import './CollectionDetails.scss';
+import AddCollection from '../add-collection/AddCollection';
 
 interface ICollectionDetailsState {
   _id?: string;
@@ -53,6 +54,9 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
   }
   componentWillReceiveProps(nextProps: ICollectionDetailsProps): void {
     this.getCollectionDetails(nextProps.match.params.collectionId);
+    if (nextProps.collections) {
+      this.getChildCollections(nextProps.collections);
+    }
   }
   componentWillUnmount() {
     this.props.dispatch(itemActions.clearItems());
@@ -123,10 +127,14 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
             <div className="CollectionDetails__header__buttons">
               <AddItemLink collection={this.state.collection}>
                 <Button variant="contained" color="primary">
-                  <i className="fas fa-plus mr-1"></i>
-                  Add Item
+                  <i className="fas fa-plus mr-1"></i> Item
                 </Button>
               </AddItemLink>
+              <AddCollection parent={this.state.collection}>
+                <Button variant="contained" color="primary">
+                  <i className="fas fa-plus mr-1"></i> Collection
+                </Button>              
+              </AddCollection>
             </div>
           </div>
           { !!this.state.children.length && this.renderChildCollections() }
