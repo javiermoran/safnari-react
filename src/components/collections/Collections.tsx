@@ -6,11 +6,14 @@ import { ICollection } from '../../models/ICollection';
 import { Dispatch } from 'redux';
 import AddCollection from './add-collection/AddCollection';
 import { Button, Typography } from '@material-ui/core';
+import { ILoading } from '../../models/ILoading';
+import Loading from '../common/loading/Loading';
 import './Collections.scss';
 
 interface ICollectionProps {
   collections: ICollection[];
   dispatch: Dispatch<any>;
+  loading?: ILoading
 }
 
 class Collections extends React.Component<ICollectionProps> {
@@ -41,6 +44,7 @@ class Collections extends React.Component<ICollectionProps> {
             </AddCollection>
           </div>
           <div className="row">
+            {this.props.loading && this.props.loading.collections && <Loading />}
             {this.renderCollections()}
           </div>
         </div>
@@ -50,7 +54,8 @@ class Collections extends React.Component<ICollectionProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-  collections: state.collections
+  collections: state.collections,
+  loading: state.loading
 });
 
 export default connect(mapStateToProps)(Collections);

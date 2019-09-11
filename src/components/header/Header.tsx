@@ -1,7 +1,7 @@
 import React, { FormEvent, Dispatch } from "react";
 import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Typography, Button, Hidden } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import api from "../../safnari.api";
 import { History } from 'history';
@@ -61,11 +61,13 @@ class Header extends React.Component<IHeaderProps> {
             {alert.message}
           </div>
         ))}
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
-            <IconButton edge="start">
-              <MenuIcon />
-            </IconButton>
+            <Hidden smUp implementation="css">
+              <IconButton edge="start">
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
             <Typography variant="h6" className="title flex-grow-1">
               Safnari
             </Typography>

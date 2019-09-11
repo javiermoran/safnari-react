@@ -47,15 +47,17 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     breadcrumbs: [],
     collection: {} as ICollection
   }
-  componentDidMount(): void {
+  componentDidMount() {
     const { collectionId } = this.props.match.params;
     this.getCollectionDetails(collectionId);
-    this.getCollectionItems(collectionId);
   }
   componentWillReceiveProps(nextProps: ICollectionDetailsProps): void {
-    this.getCollectionDetails(nextProps.match.params.collectionId);
     if (nextProps.collections) {
       this.getChildCollections(nextProps.collections);
+    }
+    if (nextProps.match.params.collectionId !== this.props.match.params.collectionId) {
+      this.getCollectionDetails(nextProps.match.params.collectionId);
+      this.props.dispatch(itemActions.clearItems());
     }
   }
   componentWillUnmount() {
@@ -77,6 +79,7 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
         const { icon } = response.data.type;
         this.setState({ _id, name, breadcrumbs, icon, collection: response.data });
         this.getChildCollections(this.props.collections);
+        this.getCollectionItems(_id);
       })
       .catch((error) => {
         this.props.history.push('/collections');

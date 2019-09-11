@@ -1,0 +1,21 @@
+.SafnariDrawer {
+  &__list {
+    a {
+      color: var(--content-color);
+      &:hover {
+        color: var(--content-color);
+        text-decoration: none;
+      }
+    }
+  }
+  &__desktop {
+    .MuiDrawer-paperAnchorLeft {
+      width: var(--drawer-width);
+    }
+    .MuiDrawer-paper {
+      height: calc(100% - var(--header-height));
+      top: var(--header-height);
+      z-index: 1;
+    }
+  }
+}

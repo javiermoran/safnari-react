@@ -2,13 +2,14 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as history from 'history';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/dashboard/Dashboard';
 import Header from './components/header/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Collections from './components/collections/Collections';
 import CollectionDetails from './components/collections/details/CollectionDetails';
 import Footer from './components/footer/Footer';
+import SafnariDrawer from './components/drawer/SafnariDrawer';
 import configureStore from './store/configureStore';
 import './scss/main.scss';
 import './App.scss';
@@ -22,13 +23,16 @@ const App = () => (
       <div className="App">
         <div className="App__content">
           <Header />
-          <Switch>
-            <Route path="/" component={Dashboard} exact={true} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/collections" component={Collections} exact={true} />
-            <Route path="/collections/:collectionId" component={CollectionDetails} />
-          </Switch>
+          <SafnariDrawer />
+          <main>
+            <Switch>
+              <Route path="/" component={Dashboard} exact={true} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/collections" component={Collections} exact={true} />
+              <Route path="/collections/:collectionId" component={CollectionDetails} />
+            </Switch>
+          </main>
         </div>
         <Footer />
       </div>

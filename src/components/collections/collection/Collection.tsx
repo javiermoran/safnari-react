@@ -6,21 +6,20 @@ import { IType } from '../../../models/IType';
 import './Collection.scss';
 
 interface ICollectionProps extends RouteComponentProps {
-  history: History,
-  data: ICollection
+  history: History;
+  data: ICollection;
 }
 
 class Collection extends React.Component<ICollectionProps> {
   goToDetails = () => {
     const { history } = this.props;
-    const id = this.props.data._id;
+    const id = (this.props.data as ICollection)._id;
     history.push(`/collections/${id}`);
   }
   render(): JSX.Element {
-    const { icon } = this.props.data.type as IType;
     return (
       <div className="Collection" onClick={this.goToDetails}>
-        <i className={`fas ${icon} Collection__icon`}></i>
+        <i className={`fas ${(this.props.data.type as IType).icon} Collection__icon`}></i>
         <span>{this.props.data.name}</span>
       </div>
     )

@@ -12,13 +12,16 @@
   align-items: center;
   padding: 1.5rem;
   text-align: center;
-  transition: all 0.5s;
+  transition: all 0.15s;
   &__icon {
     margin-bottom: 10px;
   }
   &:hover {
     background-color: var(--secondary-color);
     color: var(--light-100);
+    .Collection__icon {
+      transform: scale(1.25);
+    }
   }
   @include media-breakpoint-down(sm) {
     flex-direction: row;

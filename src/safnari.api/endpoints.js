@@ -20,6 +20,10 @@ export const items = {
   item: `${BASEPATH}/items/:id`
 };
 
+export const statistics = {
+  counts: `${BASEPATH}/statistics/counts`
+}
+
 const transform = (endpoint, params) => {
   let route = endpoint;
   const keys = Object.keys(params);
@@ -35,5 +39,6 @@ export default {
   users,
   types,
   collections,
+  statistics,
   items
 };

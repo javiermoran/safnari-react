@@ -12,6 +12,10 @@ label.MuiFormLabel-root.Mui-focused {
   }
 }
 
+h2.MuiTypography-h2 {
+  font-size: 2.5rem;
+}
+
 div.MuiInput-underline:after {
   border-bottom: 2px solid var(--secondary-color);
 }
