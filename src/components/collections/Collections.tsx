@@ -8,6 +8,7 @@ import AddCollection from './add-collection/AddCollection';
 import { Button, Typography } from '@material-ui/core';
 import { ILoading } from '../../models/ILoading';
 import Loading from '../common/loading/Loading';
+import withAuth from '../common/authorized/withAuth';
 import './Collections.scss';
 
 interface ICollectionProps {
@@ -58,4 +59,4 @@ const mapStateToProps = (state: any) => ({
   loading: state.loading
 });
 
-export default connect(mapStateToProps)(Collections);
+export default connect(mapStateToProps)(withAuth(Collections));

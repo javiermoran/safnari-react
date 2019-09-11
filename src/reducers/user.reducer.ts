@@ -12,8 +12,8 @@ export default (state = defaultUserState, action: AnyAction) => {
     case 'LOGGED_IN':
       return { ...state, loggedIn: true };
     case 'SET_USER':
-      const darkMode = action.user.settings.darkMode;
-      const { username } = action.user;
+      const { darkMode }  = (action.user.darkMode === false || action.user.darkMode === true) ? action.user : state;
+      const { username } = action.user || state;
       const user = { ...state, username, darkMode };
       localStorage.setItem('user', JSON.stringify(user));
       return user;

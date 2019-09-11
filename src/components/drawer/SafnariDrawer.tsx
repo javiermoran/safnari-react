@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Hidden, Drawer, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import './SafnariDrawer.scss';
 import { NavLink } from 'react-router-dom';
+import './SafnariDrawer.scss';
 
 interface ISafnariDrawerProps {
-  container?: Element
+  container?: Element;
+  user: any;
 }
 
 class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
@@ -15,32 +17,38 @@ class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
 
   }
   renderDrawerList(): JSX.Element {
+    const listItems = [
+      { to: '/', label: 'Dashboard', icon: 'fas fa-table' },
+      { to: '/collections', label: 'Collections', icon: 'fas fa-database' },
+      { to: '/settings', label: 'Settings', icon: 'fas fa-sliders-h' }
+    ];
+    const listElements = listItems.map((item) => (
+      <NavLink
+          exact
+          key={item.label}
+          to={item.to}
+          className="SafnariDrawer__list__item"
+          activeClassName="SafnariDrawer__list__item--active"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <i className={item.icon}></i>
+            </ListItemIcon>
+            <ListItemText primary={item.label} />
+          </ListItem>
+          <Divider />
+        </NavLink>
+    ));
+
     return (
       <List className="SafnariDrawer__list">
-        <NavLink to="/">
-          <ListItem button>
-            <ListItemIcon>
-              <i className="fas fa-table"></i>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-        </NavLink>
-        <Divider />
-        <NavLink to="/collections">
-          <ListItem button>
-            <ListItemIcon>
-              <i className="fas fa-database"></i>
-            </ListItemIcon>
-            <ListItemText primary="Collections" />
-          </ListItem>
-        </NavLink>
-        <Divider />
+        {listElements}
       </List>
     );
   }
-  render(): JSX.Element {
+  render(): JSX.Element | null {
     return (
-      <nav className="SafnariDrawer">
+      <nav className={`SafnariDrawer ${!this.props.user.loggedIn && 'SafnariDrawer--hidden'}`}>
          <Hidden smUp implementation="css">
           <Drawer
             container={this.props.container}
@@ -71,4 +79,8 @@ class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
   }
 }
 
-export default SafnariDrawer;
+const mapStateToProps = (state: any) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(SafnariDrawer);

@@ -1,0 +1,11 @@
+.Settings {
+  .MuiFormControlLabel-label {
+    color: var(--content-color);
+  }
+  .MuiSwitch-colorPrimary.Mui-checked {
+    color: var(--secondary-color);
+    & + .MuiSwitch-track {
+      background-color: var(--secondary-highlight-color);
+    }
+  }
+}

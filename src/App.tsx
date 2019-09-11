@@ -1,7 +1,6 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import * as history from 'history';
+import { Switch, Route } from 'react-router';
+import { connect } from 'react-redux';
 import Dashboard from './components/dashboard/Dashboard';
 import Header from './components/header/Header';
 import Login from './components/Login';
@@ -10,17 +9,19 @@ import Collections from './components/collections/Collections';
 import CollectionDetails from './components/collections/details/CollectionDetails';
 import Footer from './components/footer/Footer';
 import SafnariDrawer from './components/drawer/SafnariDrawer';
-import configureStore from './store/configureStore';
-import './scss/main.scss';
+import Settings from './components/config/Settings';
 import './App.scss';
 
-const browserHistory = history.createBrowserHistory();
-const store = configureStore();
+interface IAppProps {
+  user: any
+}
 
-const App = () => (
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <div className="App">
+class App extends React.Component<IAppProps> {
+  render() {
+    const darkMode = this.props.user.darkMode ? 'App--dark-mode': '';
+    const hideDrawer = !this.props.user.loggedIn ? 'App--no-drawer': '';
+    return (
+      <div className={`App ${darkMode} ${hideDrawer}`}>
         <div className="App__content">
           <Header />
           <SafnariDrawer />
@@ -31,13 +32,18 @@ const App = () => (
               <Route path="/register" component={Register} />
               <Route path="/collections" component={Collections} exact={true} />
               <Route path="/collections/:collectionId" component={CollectionDetails} />
+              <Route path="/settings" component={Settings} />
             </Switch>
           </main>
         </div>
         <Footer />
       </div>
-    </Router>
-  </Provider>
-);
+    )
+  }
+}
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(App);

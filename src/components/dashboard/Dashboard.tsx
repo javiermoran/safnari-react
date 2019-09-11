@@ -4,6 +4,7 @@ import { IUser } from "../../models/IUser";
 import { Typography } from "@material-ui/core";
 import api from '../../safnari.api';
 import DashboardItem from "./DashboardItem";
+import withAuth from '../common/authorized/withAuth';
 
 interface IDashboardProps {
   user: IUser
@@ -55,4 +56,4 @@ const mapStateToProps = (state: any) => ({
   loading: state.loading
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(withAuth(Dashboard));

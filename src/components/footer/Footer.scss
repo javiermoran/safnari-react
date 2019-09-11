@@ -5,7 +5,7 @@
   align-items: center;
   flex-direction: row;
   background-color: var(--shades);
-  border-top: 1px solid darken(#EFEFEF, 10%);
+  border-top: 1px solid var(--border-color);
   display: flex;
   height: 45px;
   justify-content: center;
