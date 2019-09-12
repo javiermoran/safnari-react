@@ -49,6 +49,12 @@ $toolbox-size: 40px;
       }
     }
   }
+  &.Item--book {
+    padding-bottom: 160%;
+    .Item__img {
+      padding-bottom: 163%;
+    }
+  }
   &__content {
     display: flex;
     flex-direction: column;

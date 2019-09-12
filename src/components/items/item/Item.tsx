@@ -7,6 +7,7 @@ import AddItemLink from '../add-item-link/AddItemLink';
 import { ICollection } from '../../../models/ICollection';
 import itemsActions from '../../../actions/items.actions';
 import './Item.scss';
+import { IType } from '../../../models/IType';
 
 interface IItemProps {
   item: IItem;
@@ -19,10 +20,16 @@ class Item extends React.Component<IItemProps> {
     const id = this.props.item._id as string;
     this.props.dispatch(itemsActions.deleteItem(id));
   }
+  isBook(item: IItem): boolean {
+    console.info(item);
+    const {name } = item.type as IType;
+    return name === 'cbook' || name === 'book';
+  }
   render(): JSX.Element {
     const backgroundImage = {backgroundImage: `url(${this.props.item.picture})`};
+    const className = `Item ${this.isBook(this.props.item) && 'Item--book'}`;
     return (
-      <div className="Item">
+      <div className={className}>
         <div className="Item__img" style={backgroundImage}></div>
         <div className="Item__content">
           <div className="Item__content__row">

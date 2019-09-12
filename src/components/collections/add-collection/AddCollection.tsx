@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Modal } from '@material-ui/core';
 import CollectionForm from '../form/CollectionForm';
 import { ICollection } from '../../../models/ICollection';
@@ -6,6 +7,7 @@ import { ICollection } from '../../../models/ICollection';
 interface IAddCollectionProps {
   className?: string;
   parent?: ICollection;
+  user: any;
 }
 
 class AddCollection extends React.Component<IAddCollectionProps> {
@@ -28,7 +30,7 @@ class AddCollection extends React.Component<IAddCollectionProps> {
           open={this.state.open}
           onClose={this.closeModal.bind(this)}
         >
-          <div className="flex-modal">
+          <div className={`flex-modal ${this.props.user.darkMode && 'flex-modal--dark-mode'}`}>
             <div className="flex-modal__content">
               <CollectionForm 
                 parent={this.props.parent}
@@ -41,5 +43,8 @@ class AddCollection extends React.Component<IAddCollectionProps> {
     );
   }
 }
+const mapStateToProps = (state: any) => ({
+  user: state.user
+});
 
-export default AddCollection;
+export default connect(mapStateToProps)(AddCollection);

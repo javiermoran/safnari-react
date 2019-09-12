@@ -9,6 +9,7 @@ interface IAddItemLinkProps {
   collection: ICollection;
   className?: string;
   item?: IItem;
+  user: any;
 }
 
 class AddItemLink extends React.Component<IAddItemLinkProps> {
@@ -31,7 +32,7 @@ class AddItemLink extends React.Component<IAddItemLinkProps> {
           open={this.state.itemModalOpen}
           onClose={this.handleClose}
         >
-          <div className="flex-modal">
+          <div className={`flex-modal ${this.props.user.darkMode && 'flex-modal--dark-mode'}`}>
             <div className="flex-modal__content">
               <ItemForm
                 item={this.props.item}
@@ -47,7 +48,8 @@ class AddItemLink extends React.Component<IAddItemLinkProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-  collections: state.collections
+  collections: state.collections,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(AddItemLink);
