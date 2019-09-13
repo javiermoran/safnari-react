@@ -1,11 +1,11 @@
 import React, { FormEvent, Dispatch } from "react";
 import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppBar, Toolbar, IconButton, Typography, Button, Hidden } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import api from "../../safnari.api";
 import { History } from 'history';
 import { IAlert } from "../../models/IAlert";
+import { DrawerButton } from "./DrawerButton";
 import "./Header.scss";
 
 interface IHeaderProps extends RouteComponentProps {
@@ -63,11 +63,7 @@ class Header extends React.Component<IHeaderProps> {
         ))}
         <AppBar position="fixed">
           <Toolbar>
-            <Hidden smUp implementation="css">
-              <IconButton edge="start">
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
+            <DrawerButton />
             <Typography variant="h6" className="title flex-grow-1">
               Safnari
             </Typography>

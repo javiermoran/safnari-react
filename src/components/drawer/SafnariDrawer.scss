@@ -33,4 +33,13 @@
       z-index: 1;
     }
   }
+  &__mobile {
+    display: flex;
+    .MuiDrawer-paperAnchorLeft {
+      width: 65%;
+    }
+    &_list {
+      flex: 1;
+    }
+  }
 }

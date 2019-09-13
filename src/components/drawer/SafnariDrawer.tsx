@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { Hidden, Drawer, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import { AppContext } from '../../context';
 import './SafnariDrawer.scss';
 
 interface ISafnariDrawerProps {
@@ -9,14 +10,9 @@ interface ISafnariDrawerProps {
   user: any;
 }
 
-class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
-  state = {
-    mobileOpen: false
-  }
-  handleDrawerToggle() {
-
-  }
-  renderDrawerList(): JSX.Element {
+const SafnariDrawer = (props: ISafnariDrawerProps) => {
+  const drawerContext = useContext(AppContext);;
+  const renderDrawerList = (): JSX.Element =>  {
     const listItems = [
       { to: '/', label: 'Dashboard', icon: 'fas fa-table' },
       { to: '/collections', label: 'Collections', icon: 'fas fa-database' },
@@ -29,6 +25,7 @@ class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
           to={item.to}
           className="SafnariDrawer__list__item"
           activeClassName="SafnariDrawer__list__item--active"
+          onClick={onCloseDrawer}
         >
           <ListItem button>
             <ListItemIcon>
@@ -39,44 +36,46 @@ class SafnariDrawer extends React.Component<ISafnariDrawerProps> {
           <Divider />
         </NavLink>
     ));
-
     return (
       <List className="SafnariDrawer__list">
         {listElements}
       </List>
     );
   }
-  render(): JSX.Element | null {
-    return (
-      <nav className={`SafnariDrawer ${!this.props.user.loggedIn && 'SafnariDrawer--hidden'}`}>
-         <Hidden smUp implementation="css">
-          <Drawer
-            container={this.props.container}
-            variant="temporary"
-            anchor="left"
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {this.renderDrawerList()}
-            <Divider />
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <div className="SafnariDrawer__desktop">
-            <Drawer
-              variant="permanent"
-              open
-            >
-              {this.renderDrawerList()}
-            </Drawer>
-          </div>
-        </Hidden>
-      </nav>
-    )
+  const onCloseDrawer = () => {
+    drawerContext.setDrawerOpen(false);
   }
+  return (
+    <nav className={`SafnariDrawer ${!props.user.loggedIn && 'SafnariDrawer--hidden'}`}>
+       <Hidden smUp implementation="css">
+        <Drawer
+          className="SafnariDrawer__mobile"
+          container={props.container}
+          variant="temporary"
+          anchor="left"
+          open={drawerContext.drawerOpen}
+          onClose={onCloseDrawer}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          <div className="SafnariDrawer__mobile__list">
+            {renderDrawerList()}
+          </div>
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <div className="SafnariDrawer__desktop">
+          <Drawer
+            variant="permanent"
+            open
+          >
+            {renderDrawerList()}
+          </Drawer>
+        </div>
+      </Hidden>
+    </nav>
+  )
 }
 
 const mapStateToProps = (state: any) => ({

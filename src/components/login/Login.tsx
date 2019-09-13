@@ -1,6 +1,6 @@
 import React, { Dispatch, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import api from '../safnari.api';
+import api from '../../safnari.api';
 import { History } from 'history';
 
 interface ILoginProps {

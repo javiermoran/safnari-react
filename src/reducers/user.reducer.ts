@@ -13,7 +13,7 @@ export default (state = defaultUserState, action: AnyAction) => {
       return { ...state, loggedIn: true };
     case 'SET_USER':
       const { darkMode }  = (action.user.darkMode === false || action.user.darkMode === true) ? action.user : state;
-      const { username } = action.user || state;
+      const username = action.user.username ? action.user.username : state.username;
       const user = { ...state, username, darkMode };
       localStorage.setItem('user', JSON.stringify(user));
       return user;

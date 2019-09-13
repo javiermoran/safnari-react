@@ -3,9 +3,10 @@ import './Footer.scss';
 
 const Footer = (): JSX.Element => (
   <div className="Footer">
-    <i className="fab fa-react Footer__icon"></i>
-    <i className="fab fa-sass Footer__icon"></i>
-    <i className="fab fa-node-js Footer__icon"></i>
+    <img src={process.env.PUBLIC_URL + '/img/jm_logo.png'} title="Javier Moran" />
+    <i className="fab fa-react Footer__icon" title="React + Redux"></i>
+    <i className="fab fa-sass Footer__icon" title="Sass"></i>
+    <i className="fab fa-node-js Footer__icon" title="NodeJs"></i>
   </div>
 );
 

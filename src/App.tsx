@@ -1,26 +1,31 @@
-import React from 'react';
-import { Switch, Route } from 'react-router';
-import { connect } from 'react-redux';
-import Dashboard from './components/dashboard/Dashboard';
-import Header from './components/header/Header';
-import Login from './components/Login';
-import Register from './components/Register';
-import Collections from './components/collections/Collections';
-import CollectionDetails from './components/collections/details/CollectionDetails';
-import Footer from './components/footer/Footer';
-import SafnariDrawer from './components/drawer/SafnariDrawer';
-import Settings from './components/config/Settings';
-import './App.scss';
+import React, { useState } from "react";
+import { Switch, Route } from "react-router";
+import { connect } from "react-redux";
+import Dashboard from "./components/dashboard/Dashboard";
+import Header from "./components/header/Header";
+import Login from "./components/login/Login";
+import Register from "./components/Register";
+import Collections from "./components/collections/Collections";
+import CollectionDetails from "./components/collections/details/CollectionDetails";
+import Footer from "./components/footer/Footer";
+import SafnariDrawer from "./components/drawer/SafnariDrawer";
+import Settings from "./components/config/Settings";
+import { AppContext } from "./context";
+import "./App.scss";
 
 interface IAppProps {
-  user: any
+  user: any;
 }
 
-class App extends React.Component<IAppProps> {
-  render() {
-    const darkMode = this.props.user.darkMode ? 'App--dark-mode': '';
-    const hideDrawer = !this.props.user.loggedIn ? 'App--no-drawer': '';
-    return (
+const App = (props: IAppProps) => {
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const darkMode = props.user.darkMode ? 'App--dark-mode' : ''
+  const hideDrawer = !props.user.loggedIn ? 'App--no-drawer' : '';
+  const toggleDrawer = (val: boolean) => {
+    setDrawerIsOpen(val);
+  }
+  return (
+    <AppContext.Provider value={{ drawerOpen: drawerIsOpen, setDrawerOpen: toggleDrawer }}>
       <div className={`App ${darkMode} ${hideDrawer}`}>
         <div className="App__content">
           <Header />
@@ -38,9 +43,9 @@ class App extends React.Component<IAppProps> {
         </div>
         <Footer />
       </div>
-    )
-  }
-}
+    </AppContext.Provider>
+  );
+};
 
 const mapStateToProps = (state: any) => ({
   user: state.user
