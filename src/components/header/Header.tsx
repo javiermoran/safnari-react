@@ -1,5 +1,5 @@
 import React, { FormEvent, Dispatch } from "react";
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import api from "../../safnari.api";
@@ -8,7 +8,7 @@ import { IAlert } from "../../models/IAlert";
 import { DrawerButton } from "./DrawerButton";
 import "./Header.scss";
 
-interface IHeaderProps extends RouteComponentProps {
+interface IHeaderProps {
   alerts: IAlert[];
   user: { loggedIn: boolean, darkMode: boolean, username: string };
   dispatch: Dispatch<any>;
@@ -80,4 +80,4 @@ const mapStateToProps = (state: any) => ({
   alerts: state.alerts
 });
 
-export default connect(mapStateToProps)(withRouter(Header));
+export default connect(mapStateToProps)(Header);
