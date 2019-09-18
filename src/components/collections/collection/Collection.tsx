@@ -10,20 +10,18 @@ interface ICollectionProps extends RouteComponentProps {
   data: ICollection;
 }
 
-class Collection extends React.Component<ICollectionProps> {
-  goToDetails = () => {
-    const { history } = this.props;
-    const id = (this.props.data as ICollection)._id;
+const Collection = (props :ICollectionProps) => {
+  const goToDetails = () => {
+    const { history } = props;
+    const id = (props.data as ICollection)._id;
     history.push(`/collections/${id}`);
-  }
-  render(): JSX.Element {
-    return (
-      <div className="Collection" onClick={this.goToDetails}>
-        <i className={`fas ${(this.props.data.type as IType).icon} Collection__icon`}></i>
-        <span>{this.props.data.name}</span>
-      </div>
-    )
-  }
+  };
+  return (
+    <div className="Collection" onClick={goToDetails}>
+      <i className={`fas ${(props.data.type as IType).icon} Collection__icon`}></i>
+      <span>{props.data.name}</span>
+    </div>
+  );
 }
 
 export default withRouter(Collection);
