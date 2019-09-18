@@ -24,11 +24,11 @@ export const post = (url, body, config = {}, auth = true) => {
       resolve(response);
     })
     .catch((error) => {
-      console.log(error);
-      if(auth && error.status === 401) {
+      const response = error.response;
+      if(auth && response.status === 401) {
         removeToken();
       }
-      reject(error);
+      reject(response);
     });
   });
 }

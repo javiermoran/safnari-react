@@ -56,15 +56,17 @@ class Header extends React.Component<IHeaderProps> {
   render() {
     return (
       <div className="Header">
-        {this.props.alerts.map((alert: IAlert) => (
-          <div className={`alert ${alert.type}`} key={alert.id}>
-            {alert.message}
-          </div>
-        ))}
+        <div className="alerts-container">
+          {this.props.alerts.map((alert: IAlert) => (
+            <div className={`alert ${alert.type}`} key={alert.id}>
+              {alert.message}
+            </div>
+          ))}
+        </div>
         <AppBar position="fixed">
           <Toolbar>
             <DrawerButton />
-            <Typography variant="h6" className="title flex-grow-1">
+            <Typography variant="h6" className="Header__title title flex-grow-1">
               Safnari
             </Typography>
             {this.props.user.loggedIn ? this.loggedInMenu() : this.loggedOutMenu()}

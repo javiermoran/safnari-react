@@ -1,0 +1,8 @@
+.BarChart {
+  svg {
+    overflow: visible;
+  }
+  &__column {
+    fill: var(--primary-color);
+  }
+}

@@ -1,5 +1,16 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
 .Header {
   height: var(--header-height);
+  position: relative;
+  h6#{&}__title {
+    color: var(--light-100);
+    font-family: var(--logo-font);
+    font-size: 1.7rem;
+    font-weight: bolder;
+  }
   .MuiAppBar-colorPrimary {
     background-color: var(--header-background-color);
   }
@@ -9,6 +20,36 @@
       &--active button {
         background-color: var(--highlight-color);
       }
+    }
+  }
+  .alerts-container {
+    position: absolute;
+    padding: 0.5rem;
+    top: 100%;
+    z-index: 2;
+    .alert {
+      padding: 1rem;
+      &.error {
+        background-color: var(--danger);
+        color: var(--light-100);
+      }
+    }
+  }
+}
+
+.DrawerButton {
+  &__hamburger {
+    color: var(--light-100);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .Header {
+    h6#{&}__title {
+      text-align: center;
+    }
+    .alerts-container {
+      width: 100%;
     }
   }
 }

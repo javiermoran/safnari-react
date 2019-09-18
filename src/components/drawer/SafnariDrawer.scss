@@ -36,10 +36,16 @@
   &__mobile {
     display: flex;
     .MuiDrawer-paperAnchorLeft {
+      background: var(--app-background-color);
       width: 65%;
     }
     &_list {
       flex: 1;
+    }
+    h6#{&}__logo {
+      color: var(--content-color);
+      font-family: var(--logo-font);
+      font-weight: bolder;
     }
   }
 }

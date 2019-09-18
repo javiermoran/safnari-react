@@ -10,8 +10,8 @@ export const DrawerButton = () => {
   }
   return (
     <Hidden smUp implementation="css">
-      <IconButton edge="start" onClick={handleClick}>
-        <MenuIcon />
+      <IconButton className="DrawerButton" edge="start" onClick={handleClick}>
+        <MenuIcon className="DrawerButton__hamburger" />
       </IconButton>
     </Hidden>
   );

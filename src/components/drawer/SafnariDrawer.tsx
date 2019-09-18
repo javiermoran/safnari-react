@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
-import { Hidden, Drawer, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { Hidden, Drawer, Divider, List, ListItem, ListItemText, ListItemIcon, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../context';
 import './SafnariDrawer.scss';
@@ -49,7 +49,7 @@ const SafnariDrawer = (props: ISafnariDrawerProps) => {
     <nav className={`SafnariDrawer ${!props.user.loggedIn && 'SafnariDrawer--hidden'}`}>
        <Hidden smUp implementation="css">
         <Drawer
-          className="SafnariDrawer__mobile"
+          className={`SafnariDrawer__mobile ${props.user.darkMode && 'SafnariDrawer__mobile--dark-mode'}`}
           container={props.container}
           variant="temporary"
           anchor="left"
@@ -60,6 +60,9 @@ const SafnariDrawer = (props: ISafnariDrawerProps) => {
           }}
         >
           <div className="SafnariDrawer__mobile__list">
+            <ListItem>
+              <Typography className="SafnariDrawer__mobile__logo" variant="h6">Safnari</Typography>
+            </ListItem>
             {renderDrawerList()}
           </div>
         </Drawer>

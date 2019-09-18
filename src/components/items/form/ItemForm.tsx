@@ -137,7 +137,6 @@ class ItemForm extends React.Component<IItemFormProps> {
               <TextField
                 value={this.state.imgName}
                 onClick={this.pictureClick.bind(this)}
-                onFocus={() => { !this.state.picture && this.pictureClick() }}
                 label="Picture"
                 type="text"
               />

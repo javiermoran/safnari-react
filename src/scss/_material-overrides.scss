@@ -2,6 +2,12 @@
   max-width: 100%;
 }
 
+.MuiButton-root.MuiButton-text:not(.MuiButton-textSecondary) {
+  i {
+    color: var(--content-color);
+  }
+}
+
 label.MuiFormLabel-root.Mui-focused {
   color: var(--secondary-color);
 }

@@ -1,6 +1,7 @@
 import api from '../safnari.api';
 import { IItem } from '../models/IItem';
 import { Dispatch, AnyAction } from 'redux';
+import alertsActions from './alerts.actions';
 
 export const getItems = (collectionId: string) => {
   return (dispatch: Dispatch<AnyAction>) => {
@@ -11,9 +12,11 @@ export const getItems = (collectionId: string) => {
 };
 
 export const saveItem = (item: IItem) => {
-  return (dispatch: Dispatch<AnyAction>) => {
+  return (dispatch: Dispatch<any>) => {
     api.items.create(item).then((response) => {
       dispatch(addItem(response.data));
+    }).catch((e) => {
+      dispatch(alertsActions.addAlert(e.data.message, 'error'));
     });
   }
 };

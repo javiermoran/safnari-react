@@ -1,4 +1,4 @@
-.App, .flex-modal {
+.App, .flex-modal, .SafnariDrawer__mobile {
   --primary-color: #4ABADB;
   --secondary-color: #A7438A;
   --secondary-highlight-color: #7C4887;
@@ -12,11 +12,15 @@
   --highlight-color: rgba(0, 0, 0, 0.04);
   --default-box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
   &--dark-mode {
+    --header-background-color: #337F96;
+    --secondary-color: #C977A7;
     --app-background-color: #575E75;
     --content-color: #DDEBEB;
     --border-color: #323636;
     --shades: #313542;
   }
+
+  --logo-font: Megrim;
 }
 
 .App {

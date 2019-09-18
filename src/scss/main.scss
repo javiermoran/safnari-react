@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Megrim&display=swap');
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -9,6 +10,7 @@
 @import "material-overrides";
 
 html, body, #root {
+  color: var(--content-color);
   height: 100%;
   min-height: 100%;
 }
