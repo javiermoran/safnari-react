@@ -28,19 +28,19 @@ class Settings extends React.Component<ISettingsProps> {
       <div className="Settings">
         <div className="container">
           <Typography variant="h2">Settings</Typography>
-          <FormGroup>
-          <FormControlLabel
-            className="Setting__label"
-            control={
-              <Switch
-                checked={this.state.darkMode}
-                onChange={this.handleDarkModeChange}
-                value="checkedB"
-                color="primary"
-              />
-            }
-            label="Dark Mode"
-          />
+          <FormGroup className="mt-3">
+            <FormControlLabel
+              className="Setting__label"
+              control={
+                <Switch
+                  checked={this.state.darkMode}
+                  onChange={this.handleDarkModeChange}
+                  value="checkedB"
+                  color="primary"
+                />
+              }
+              label="Dark Mode"
+            />
           </FormGroup>
         </div>
       </div>

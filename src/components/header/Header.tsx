@@ -15,7 +15,7 @@ interface IHeaderProps extends RouteComponentProps {
   history: History;
 };
 
-class Header extends React.Component<IHeaderProps> {
+class Header extends React.Component<any> {
   loggedInMenu = () => {
     return (
       <div>
