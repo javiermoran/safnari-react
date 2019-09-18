@@ -15,17 +15,17 @@ interface IHeaderProps extends RouteComponentProps {
   history: History;
 };
 
-class Header extends React.Component<any> {
-  loggedInMenu = () => {
+const Header = (props: any) => {
+  const loggedInMenu = () => {
     return (
       <div>
-        <Button color="inherit" onClick={this.onLogout}>
+        <Button color="inherit" onClick={onLogout}>
           Logout
         </Button>
       </div>
     );
   };
-  loggedOutMenu = () => {
+  const loggedOutMenu = () => {
     return (
       <div className="sign-up-menu">
         <NavLink
@@ -45,36 +45,34 @@ class Header extends React.Component<any> {
       </div>
     );
   };
-  onLogout = (e: FormEvent<any>) => {
-    const { history } = this.props;
+  const onLogout = (e: FormEvent<any>) => {
+    const { history } = props;
     e.preventDefault();
     api.users.logout().then(() => {
-      this.props.dispatch({ type: "LOGGED_OUT" });
+      props.dispatch({ type: "LOGGED_OUT" });
       history.push("/login");
     });
   };
-  render() {
-    return (
-      <div className="Header">
-        <div className="alerts-container">
-          {this.props.alerts.map((alert: IAlert) => (
-            <div className={`alert ${alert.type}`} key={alert.id}>
-              {alert.message}
-            </div>
-          ))}
-        </div>
-        <AppBar position="fixed">
-          <Toolbar>
-            <DrawerButton />
-            <Typography variant="h6" className="Header__title title flex-grow-1">
-              Safnari
-            </Typography>
-            {this.props.user.loggedIn ? this.loggedInMenu() : this.loggedOutMenu()}
-          </Toolbar>
-        </AppBar>
+  return (
+    <div className="Header">
+      <div className="alerts-container">
+        {props.alerts.map((alert: IAlert) => (
+          <div className={`alert ${alert.type}`} key={alert.id}>
+            {alert.message}
+          </div>
+        ))}
       </div>
-    );
-  }
+      <AppBar position="fixed">
+        <Toolbar>
+          <DrawerButton />
+          <Typography variant="h6" className="Header__title title flex-grow-1">
+            Safnari
+          </Typography>
+          {props.user.loggedIn ? loggedInMenu() : loggedOutMenu()}
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
 const mapStateToProps = (state: any) => ({
