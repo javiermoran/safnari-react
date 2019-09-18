@@ -11,13 +11,13 @@ import Loading from '../common/loading/Loading';
 import withAuth from '../common/authorized/withAuth';
 import './Collections.scss';
 
-interface ICollectionProps {
+interface ICollectionsProps {
   collections: ICollection[];
   dispatch: Dispatch<any>;
   loading?: ILoading
 }
 
-class Collections extends React.Component<ICollectionProps> {
+class Collections extends React.Component<ICollectionsProps> {
   componentDidMount() {
     this.getCollections();
   }
