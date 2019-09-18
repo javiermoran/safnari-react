@@ -10,7 +10,7 @@ interface ICollectionProps extends RouteComponentProps {
   data: ICollection;
 }
 
-const Collection = (props :ICollectionProps) => {
+const Collection = (props: any) => {
   const goToDetails = () => {
     const { history } = props;
     const id = (props.data as ICollection)._id;

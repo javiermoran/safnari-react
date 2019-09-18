@@ -20,34 +20,44 @@ class Dashboard extends React.Component<IDashboardProps> {
   state = {
     counts: {
       collections: 0,
-      items: 0
+      items: 0,
+      types: 0
     }
   }
   componentDidMount() {
     this.getCollections();
     api.statistics.getCounts().then((response) => {
-      this.setState({ counts: response.data });
+      const types = this.state.counts.types;
+      this.setState({ counts: { ...response.data, types } });
     });
+  }
+  componentWillReceiveProps(nextProps: IDashboardProps) {
+    const barData = this.getCollectionsData();
+    const types = barData.length;
+    barData.length !== this.state.counts.types && this.setState({ counts: { ...this.state.counts, types } });
   }
   getCollections() {
     this.props.dispatch(collectionsActions.getCollections());
   }
   renderCounts(): JSX.Element {
-    const { collections, items } = this.state.counts;
+    const { collections, items, types } = this.state.counts;
     return (
       <div className="Dashboard__counts">
         <div className="row">
-          <div className="col col-12 col-sm-6 col-lg-3">
+          <div className="col col-12 col-sm-6 col-lg-3 mb-2">
             <DashboardItem title="Collections" number={collections} />
           </div>
-          <div className="col col-12 col-sm-6 col-lg-3">
+          <div className="col col-12 col-sm-6 col-lg-3 mb-2">
             <DashboardItem title="Total Items" number={items} />
+          </div>
+          <div className="col col-12 col-sm-6 col-lg-3 mb-2">
+            <DashboardItem title="Types" number={types} />
           </div>
         </div>
       </div>
     );
   }
-  getCollectionsData(): any {
+  getCollectionsData(): any[] {
     let data: any = {};
     if (this.props.collections.length) {
       this.props.collections.forEach((collection: ICollection) => {
@@ -61,12 +71,14 @@ class Dashboard extends React.Component<IDashboardProps> {
     return data;
   }
   renderCharts() {
-    const barData = this.getCollectionsData();
-    return (
-      <div className="Dashboard__charts">
-        <BarChart data={barData} />
+    const barData: any[] = [].slice.call(this.getCollectionsData());
+    const filteredData = barData.sort((a: any, b: any) => b.value-a.value).slice(0, 5);
+    //TODO: fix bar chart
+    /*return (
+      <div className="Dashboard__charts mb-4">
+        <BarChart data={filteredData} />
       </div>
-    )
+    )*/
   }
   render(): JSX.Element {
     return (

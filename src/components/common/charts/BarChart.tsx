@@ -10,7 +10,7 @@ interface IBarChartProps {
 const BarChart = (props: IBarChartProps) => {
   const chartId = `chart-${uuid.v4()}`;
   const data = props.data;
-  const height = 300;
+  const height = 200;
   const colWidth = 50;
   const colSpace = 40;
   const drawChart = (): void => {
