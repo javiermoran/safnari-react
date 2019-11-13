@@ -2,15 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal } from '@material-ui/core';
 import CollectionForm from '../form/CollectionForm';
-import { ICollection } from '../../../models/ICollection';
 
-interface IAddCollectionProps {
-  className?: string;
-  parent?: ICollection;
-  user: any;
-}
-
-class AddCollection extends React.Component<IAddCollectionProps> {
+class AddCollection extends React.Component<any> {
   state = {
     open: false
   }
