@@ -17,7 +17,8 @@ export const collections = {
 
 export const items = {
   items: `${BASEPATH}/items`,
-  item: `${BASEPATH}/items/:id`
+  item: `${BASEPATH}/items/:id`,
+  pictures: `${BASEPATH}/items/:id/images`
 };
 
 export const statistics = {

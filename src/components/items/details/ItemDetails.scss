@@ -1,0 +1,19 @@
+.ItemDetails {
+  &__info-row {
+    color: var(--content-color);
+  }
+  &__image {
+    background-size: cover;
+    padding-bottom: 100%;
+  }
+  &__add {
+    align-items: center;
+    border: 1px solid var(--border-color);
+    color: var(--border-color);
+    cursor: pointer;
+    display: flex;
+    font-size: 1.5rem;
+    height: 100%;
+    justify-content: center;
+  }
+} 

@@ -44,6 +44,11 @@ const BarChart = (props: IBarChartProps) => {
     svg.append('g')
       .attr("transform", "translate(0," + height + ")")
       .call(generateXAxis());
+      svg
+      .selectAll(".tick")
+      .attr("transform", (d, i) => {
+        return `translate(${i * (colWidth + colSpace) + 25},0)`;
+       })
   };
   const generateXAxis = () => {
     const axisScale = d3

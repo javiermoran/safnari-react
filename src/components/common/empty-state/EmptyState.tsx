@@ -1,4 +1,5 @@
 import React from 'react';
+import './EmptyState.scss';
 
 interface IEmptyStateProps {
   message: string;

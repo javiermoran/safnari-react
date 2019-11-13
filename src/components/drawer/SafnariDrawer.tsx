@@ -16,6 +16,7 @@ const SafnariDrawer = (props: ISafnariDrawerProps) => {
     const listItems = [
       { to: '/', label: 'Dashboard', icon: 'fas fa-table' },
       { to: '/collections', label: 'Collections', icon: 'fas fa-database' },
+      { to: '/tags', label: 'Tags', icon: 'fas fa-tags' },
       { to: '/settings', label: 'Settings', icon: 'fas fa-sliders-h' }
     ];
     const listElements = listItems.map((item) => (

@@ -9,6 +9,7 @@ import BarChart from "../common/charts/BarChart";
 import { ICollection } from "../../models/ICollection";
 import collectionsActions from "../../actions/collections.actions";
 import { IType } from "../../models/IType";
+import Loading from "../common/loading/Loading";
 
 interface IDashboardProps {
   user: IUser;
@@ -22,7 +23,8 @@ class Dashboard extends React.Component<IDashboardProps> {
       collections: 0,
       items: 0,
       types: 0
-    }
+    },
+    loading: true
   }
   componentDidMount() {
     this.getCollections();
@@ -33,8 +35,8 @@ class Dashboard extends React.Component<IDashboardProps> {
   }
   componentWillReceiveProps(nextProps: IDashboardProps) {
     const barData = this.getCollectionsData();
-    const types = barData.length;
-    barData.length !== this.state.counts.types && this.setState({ counts: { ...this.state.counts, types } });
+    const types = barData.length || 0;
+    this.setState({ counts: { ...this.state.counts, types }, loading: false });
   }
   getCollections() {
     this.props.dispatch(collectionsActions.getCollections());
@@ -42,6 +44,7 @@ class Dashboard extends React.Component<IDashboardProps> {
   renderCounts(): JSX.Element {
     const { collections, items, types } = this.state.counts;
     return (
+      this.state.loading ? <Loading /> :
       <div className="Dashboard__counts">
         <div className="row">
           <div className="col col-12 col-sm-6 col-lg-3 mb-2">
@@ -59,7 +62,15 @@ class Dashboard extends React.Component<IDashboardProps> {
   }
   getCollectionsData(): any[] {
     let data: any = {};
-    if (this.props.collections.length) {
+    if (!this.props.collections.length) {
+      return {
+        counts: {
+          collections: 0,
+          items: 0,
+          types: 0
+        }
+      } as any;
+    } else {
       this.props.collections.forEach((collection: ICollection) => {
         const key = (collection.type as IType).name as string;
         const label = (collection.type as IType).description;
@@ -74,11 +85,11 @@ class Dashboard extends React.Component<IDashboardProps> {
     const barData: any[] = [].slice.call(this.getCollectionsData());
     const filteredData = barData.sort((a: any, b: any) => b.value-a.value).slice(0, 5);
     //TODO: fix bar chart
-    /*return (
-      <div className="Dashboard__charts mb-4">
-        <BarChart data={filteredData} />
-      </div>
-    )*/
+    // return (
+    //   <div className="Dashboard__charts mb-4">
+    //     <BarChart data={filteredData} />
+    //   </div>
+    // );
   }
   render(): JSX.Element {
     return (

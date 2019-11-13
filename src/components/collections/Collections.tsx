@@ -9,6 +9,7 @@ import { Button, Typography } from '@material-ui/core';
 import { ILoading } from '../../models/ILoading';
 import Loading from '../common/loading/Loading';
 import withAuth from '../common/authorized/withAuth';
+import EmptyState from '../common/empty-state/EmptyState';
 import './Collections.scss';
 
 interface ICollectionsProps {
@@ -24,8 +25,17 @@ class Collections extends React.Component<ICollectionsProps> {
   getCollections() {
     this.props.dispatch(collectionsActions.getCollections());
   }
-  renderCollections(): JSX.Element[] {
+  renderCollections() {
     const collections: ICollection[] = collectionsActions.filterByParent(this.props.collections);
+
+    if (!collections.length) {
+      return (
+        <div className="col">
+          <EmptyState message="No collections found"></EmptyState>
+        </div>
+      );
+    }
+
     return collections.map(collection => (
       <div key={collection._id} className="col col-12 col-md-4 col-lg-4 mb-2">
         <Collection data={collection} />

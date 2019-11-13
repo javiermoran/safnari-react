@@ -8,7 +8,7 @@ const get = (id) => {
 };
 
 const getByCollection = (collectionId) => {
-  const endpoint = `${endpoints.items.items}?collection=${collectionId}`;
+  const endpoint = `${endpoints.items.items}?collection=${collectionId}&thumbs=200`;
   return core.get(endpoint);
 }
 
@@ -28,10 +28,17 @@ const remove = (id) => {
   return core.delete(endpoint);
 };
 
+const addPictures = (id, pictures) => {
+  const url = endpoints.items.pictures;
+  const endpoint = endpoints.transform(url, { id });
+  return core.post(endpoint, { pictures });
+}
+
 export default {
   get,
   getByCollection,
   create,
   update,
+  addPictures,
   delete: remove
 }

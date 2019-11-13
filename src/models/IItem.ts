@@ -6,11 +6,13 @@ export interface IItem {
   title: string;
   number?: number;
   publisher?: string;
+  pictures?: string[];
   artist?: string;
   format?: string;
   picture?: string;
   created?: number;
   type?: IType | string;
+  tags?: any;
   creator?: string;
   coll: ICollection | string;
   status?: string;

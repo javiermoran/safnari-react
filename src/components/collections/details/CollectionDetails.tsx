@@ -14,6 +14,8 @@ import { Typography, Button } from '@material-ui/core';
 import { IItem } from '../../../models/IItem';
 import './CollectionDetails.scss';
 import AddCollection from '../add-collection/AddCollection';
+import Loading from '../../common/loading/Loading';
+import EmptyState from '../../common/empty-state/EmptyState';
 
 interface ICollectionDetailsState {
   _id?: string;
@@ -23,6 +25,7 @@ interface ICollectionDetailsState {
   typeId?: string;
   children?: ICollection[];
   collection?: ICollection;
+  loading?: boolean;
 }
 
 interface ICollectionDetailsMatch {
@@ -45,7 +48,8 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
     children: [],
     typeId: '',
     breadcrumbs: [],
-    collection: {} as ICollection
+    collection: {} as ICollection,
+    loading: true
   }
   componentDidMount() {
     const { collectionId } = this.props.match.params;
@@ -77,7 +81,7 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
       .then((response) => {
         const { _id, name, breadcrumbs } = response.data;
         const { icon } = response.data.type;
-        this.setState({ _id, name, breadcrumbs, icon, collection: response.data });
+        this.setState({ _id, name, breadcrumbs, icon, collection: response.data, loading: false });
         this.getChildCollections(this.props.collections);
         this.getCollectionItems(_id);
       })
@@ -117,8 +121,12 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
       </div>
     );
   }
+  renderEmpty(): JSX.Element {
+    return <EmptyState message="No items found"></EmptyState>;
+  }
   render(): JSX.Element {
     return (
+      this.state.loading ? <Loading /> :
       <div className="CollectionDetails">
         <div className="container">
           <Breadcrumbs data={this.state.breadcrumbs} />
@@ -140,6 +148,7 @@ class CollectionDetails extends React.Component<ICollectionDetailsProps, ICollec
               </AddCollection>
             </div>
           </div>
+          { !this.state.children.length && !this.props.items.length && this.renderEmpty()}
           { !!this.state.children.length && this.renderChildCollections() }
           { !!this.props.items.length && this.renderItems() }
         </div>

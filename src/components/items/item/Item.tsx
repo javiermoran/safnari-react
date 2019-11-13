@@ -6,8 +6,9 @@ import Confirm from '../../common/confirm/Confirm';
 import AddItemLink from '../add-item-link/AddItemLink';
 import { ICollection } from '../../../models/ICollection';
 import itemsActions from '../../../actions/items.actions';
-import './Item.scss';
 import { IType } from '../../../models/IType';
+import { NavLink } from 'react-router-dom';
+import './Item.scss';
 
 interface IItemProps {
   item: IItem;
@@ -21,7 +22,6 @@ class Item extends React.Component<IItemProps> {
     this.props.dispatch(itemsActions.deleteItem(id));
   }
   isBook(item: IItem): boolean {
-    console.info(item);
     const {name } = item.type as IType;
     return name === 'cbook' || name === 'book';
   }
@@ -33,10 +33,19 @@ class Item extends React.Component<IItemProps> {
         <div className="Item__img" style={backgroundImage}></div>
         <div className="Item__content">
           <div className="Item__content__row">
-            <Typography variant="subtitle2">{this.props.item.title}</Typography>
+            <Typography variant="subtitle2">
+              {this.props.item.title}
+            </Typography>
           </div>
           <div className="Item__content__row">
-            <Typography variant="body2">{this.props.item.publisher}</Typography>
+            <Typography variant="body2">
+              {this.props.item.publisher}
+            </Typography>
+          </div>
+          <div className="Item__content__row">
+            <NavLink to={`/items/${this.props.item._id}`}>
+              Details
+            </NavLink>
           </div>
         </div>
         <div className="Item__toolbox">

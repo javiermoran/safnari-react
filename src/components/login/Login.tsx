@@ -63,7 +63,7 @@ class Login extends React.Component<ILoginProps> {
             <div className="form-group">
               <label>Email or Username</label>
               <input 
-                type="email"
+                type="text"
                 className="form-control"
                 placeholder="Email or username"
                 value={this.state.username}
