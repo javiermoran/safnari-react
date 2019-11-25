@@ -1,10 +1,25 @@
 .ItemDetails {
+  padding-bottom: 50px;
   &__info-row {
     color: var(--content-color);
   }
   &__image {
-    background-size: cover;
-    padding-bottom: 100%;
+    cursor: pointer;
+    transition: all 0.1s;
+    &__inner {
+      background-size: cover;
+      padding-bottom: 100%;
+      box-shadow: 0 1px 4px 0 rgba(0,1,1,0.5);
+      &:hover {
+        box-shadow: 0 1px 4px 1px rgba(167, 67, 138, 1);
+      }  
+    }
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  &__tags {
+    display: flex;
   }
   &__add {
     align-items: center;

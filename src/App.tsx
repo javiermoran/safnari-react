@@ -11,6 +11,7 @@ import Footer from "./components/footer/Footer";
 import SafnariDrawer from "./components/drawer/SafnariDrawer";
 import Settings from "./components/config/Settings";
 import ItemDetails from "./components/items/details/ItemDetails";
+import Tags from "./components/tags/Tags";
 import { AppContext } from "./context";
 import "./App.scss";
 
@@ -40,6 +41,7 @@ const App = (props: IAppProps) => {
               <Route path="/collections/:collectionId" component={CollectionDetails} />
               <Route path="/items/:itemId" component={ItemDetails}></Route>
               <Route path="/settings" component={Settings} />
+              <Route path="/tags" component={Tags} />
             </Switch>
           </main>
         </div>

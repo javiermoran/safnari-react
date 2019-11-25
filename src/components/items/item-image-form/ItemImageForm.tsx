@@ -16,8 +16,8 @@ const ItemImageForm = (props: any) => {
     setOpen(true);
   }
   function closeModal() {
-    setFiles([]);
     setOpen(false);
+    setFiles([]);
   }
   function savePictures() {
     const id = props.itemId;
@@ -42,7 +42,10 @@ const ItemImageForm = (props: any) => {
   }
   return (
     <div className="ItemImageForm">
-      <i className="fas fa-plus" onClick={openModal}></i>
+      <div className="ItemImageForm__button" onClick={openModal}>
+        <i className="fas fa-plus"></i>
+        <span className="ItemImageForm__button__text">Add Images</span>
+      </div>
       <Modal
         className="ItemImageForm__modal"
         open={open}

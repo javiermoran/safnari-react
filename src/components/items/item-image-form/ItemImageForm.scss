@@ -1,4 +1,20 @@
 .ItemImageForm {
+  &, &__button {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    i {
+      transition: all 0.3s ease-in;
+    }
+    &__text {
+      size: 0;
+      font-size: 0;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
   &__modal {
     input {
       height: 200px;
@@ -13,6 +29,20 @@
       overflow: auto;
       white-space: nowrap;
       width: 100px;
+    }
+  }
+  &:hover {
+    .ItemImageForm {
+      &__button {
+        i {
+          font-size: 0;
+          transition: all 0s;
+        }
+        &__text {
+          font-size: 16px;
+          transition: all 0.3s ease-out;
+        }
+      }
     }
   }
 }

@@ -2,17 +2,8 @@ import React from 'react';
 import { Modal } from '@material-ui/core';
 import ItemForm from '../form/ItemForm';
 import { connect } from 'react-redux';
-import { ICollection } from '../../../models/ICollection';
-import { IItem } from '../../../models/IItem';
 
-interface IAddItemLinkProps {
-  collection: ICollection;
-  className?: string;
-  item?: IItem;
-  user: any;
-}
-
-class AddItemLink extends React.Component<IAddItemLinkProps> {
+class AddItemLink extends React.Component<any> {
   state = {
     itemModalOpen: false
   }

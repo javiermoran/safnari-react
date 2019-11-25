@@ -10,6 +10,12 @@ export const types = {
   types: `${BASEPATH}/types`
 };
 
+export const tags = {
+  base: `${BASEPATH}/tags`,
+  tag: `${BASEPATH}/tags/:id`,
+  items: `${BASEPATH}/tags/:id/items`
+};
+
 export const collections = {
   collections: `${BASEPATH}/collections`,
   collection: `${BASEPATH}/collections/:id`
@@ -18,6 +24,7 @@ export const collections = {
 export const items = {
   items: `${BASEPATH}/items`,
   item: `${BASEPATH}/items/:id`,
+  tag: `${BASEPATH}/items/:id/tag`,
   pictures: `${BASEPATH}/items/:id/images`
 };
 
@@ -41,5 +48,6 @@ export default {
   types,
   collections,
   statistics,
-  items
+  items,
+  tags
 };

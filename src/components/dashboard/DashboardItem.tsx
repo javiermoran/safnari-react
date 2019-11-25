@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import Loading from '../common/loading/Loading';
 import './Dashboard.scss';
-import { number } from 'prop-types';
 
 interface IDashboardItemProps {
   number: number;

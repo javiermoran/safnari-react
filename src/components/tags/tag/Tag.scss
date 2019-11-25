@@ -1,0 +1,23 @@
+.Tag {
+  border-radius: 30px;
+  padding: 2px;
+  border: 2px solid;
+  border-color: transparent;
+  margin-right: 0.5rem;
+  &--selected {
+    border-color: var(--secondary-color);
+  }
+  &__container {
+    background: var(--border-color);
+    border-radius: 30px;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    padding: 0 1rem;
+  }
+  &__button {
+    background: none;
+    border: none;
+    color: var(--white);
+  }
+}

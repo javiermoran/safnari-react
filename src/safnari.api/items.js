@@ -28,6 +28,12 @@ const remove = (id) => {
   return core.delete(endpoint);
 };
 
+const addTag = (id, tagId) => {
+  const url = endpoints.items.tag;
+  const endpoint = endpoints.transform(url, { id });
+  return core.post(endpoint, { tagId });
+}
+
 const addPictures = (id, pictures) => {
   const url = endpoints.items.pictures;
   const endpoint = endpoints.transform(url, { id });
@@ -40,5 +46,6 @@ export default {
   create,
   update,
   addPictures,
+  addTag,
   delete: remove
 }
